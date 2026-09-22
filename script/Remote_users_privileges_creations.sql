@@ -10,6 +10,8 @@ CREATE USER IF NOT EXISTS 'sam.cs'@'%' IDENTIFIED BY '240836';
 
 CREATE USER IF NOT EXISTS 'usuarios.do'@'%' IDENTIFIED BY '5646';
 
+create user if not exists 'doc.dac'@'%' IDENTIFIED BY '565566';
+
 
 -- ============================================================
 -- SUPER USUARIO
@@ -73,6 +75,8 @@ GRANT 'seller' TO 'nombre.apellido'@'%';
 
 GRANT 'support' TO 'sam.cs'@'%';
 
+grant 'seller' to 'doc.dac'@'%';
+
 
 -- ============================================================
 -- ROLES POR DEFECTO
@@ -83,6 +87,8 @@ SET DEFAULT ROLE 'super_admin' TO 'angel.cruz'@'%';
 SET DEFAULT ROLE 'seller' TO 'nombre.apellido'@'%';
 
 SET DEFAULT ROLE 'support' TO 'sam.cs'@'%';
+
+set default role 'seller' to 'doc.dac'@'%';
 
 
 -- ============================================================
@@ -102,3 +108,5 @@ SHOW GRANTS FOR 'super_admin';
 SHOW GRANTS FOR 'seller';
 
 SHOW GRANTS FOR 'support';
+
+select "los usuarios y privilegios an sido creados correctamente" as mensaje;
