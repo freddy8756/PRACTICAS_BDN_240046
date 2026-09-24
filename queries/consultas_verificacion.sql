@@ -4,7 +4,7 @@ USE db_test_8b;
 SHOW TABLES;
 
 /* 2. ¿Cuántos triggers existen en la base de datos db_test_8b? */
-SHOW TRIGGERS FROM db_test_7b;
+SHOW TRIGGERS FROM db_test_8b;
 
 /* 3. ¿Cuántos registros existen en la tabla users? */
 SELECT COUNT(*) AS total_registros FROM tb_users;
@@ -25,7 +25,7 @@ SELECT User, Host FROM mysql.user WHERE Host = '%' AND account_locked = 'Y';
 SELECT TO_USER AS usuario, TO_HOST AS host, FROM_USER AS rol, FROM_HOST AS rol_host FROM mysql.role_edges ORDER BY TO_USER, FROM_USER;
 
 /*9. Verificar es total de procedimientos almacenados que existen en la base de datos*/
-SHOW PROCEDURE STATUS WHERE Db = 'db_test_7b';
+SHOW PROCEDURE STATUS WHERE Db = 'db_test_8b';
 
 select
 u.nick,
