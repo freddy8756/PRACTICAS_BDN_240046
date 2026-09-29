@@ -101,3 +101,168 @@ b.db_user,
 b.operation_description,
 b.operation_date
 order by b.operation_date asc;
+
+USE db_test_8b;
+
+-- =====================================================
+-- 1. ¿Cuántas tablas existen en la base de datos?
+-- =====================================================
+SHOW TABLES;
+
+-- =====================================================
+-- 2. ¿Cuántos triggers existen en la base de datos?
+-- =====================================================
+SHOW TRIGGERS FROM db_test_8b;
+
+-- =====================================================
+-- 3. Usuarios
+-- =====================================================
+
+-- Total de usuarios
+SELECT COUNT(*) AS total_registros
+FROM tb_users;
+
+-- Visualización de usuarios
+SELECT *
+FROM tb_users;
+
+-- Trazabilidad de usuarios
+SELECT
+    u.nick,
+    u.email,
+    b.db_user AS inserted_by,
+    GROUP_CONCAT(
+        DISTINCT re.FROM_USER
+        ORDER BY re.FROM_USER
+        SEPARATOR ', '
+    ) AS roles,
+    b.operation_description,
+    b.operation_date
+FROM tb_users u
+JOIN tb_logs b
+    ON b.operation_description LIKE CONCAT('%', u.nick, '%')
+   AND b.operation_description LIKE CONCAT('%', u.email, '%')
+LEFT JOIN mysql.role_edges re
+    ON re.TO_USER = SUBSTRING_INDEX(b.db_user, '@', 1)
+WHERE b.table_operation = 'Create'
+  AND b.table_name = 'tb_users'
+GROUP BY
+    u.nick,
+    u.email,
+    b.db_user,
+    b.operation_description,
+    b.operation_date
+ORDER BY b.operation_date ASC;
+
+-- =====================================================
+-- 4. ¿Cuántos registros existen en la bitácora?
+-- =====================================================
+
+SELECT COUNT(*) AS total_registros
+FROM tb_logs;
+
+-- =====================================================
+-- 5. Consultar todas las operaciones realizadas
+-- =====================================================
+
+SELECT *
+FROM tb_logs;
+
+-- =====================================================
+-- 6. Verificar que los usuarios remotos hayan sido creados
+-- =====================================================
+
+SELECT
+    User,
+    Host
+FROM mysql.user
+WHERE Host = '%'
+  AND account_locked = 'N';
+
+-- =====================================================
+-- 7. Verificar los roles creados
+-- =====================================================
+
+SELECT
+    User,
+    Host
+FROM mysql.user
+WHERE Host = '%'
+  AND account_locked = 'Y';
+
+-- =====================================================
+-- 8. Verificar qué usuarios tienen qué roles
+-- =====================================================
+
+SELECT
+    TO_USER AS usuario,
+    TO_HOST AS host,
+    FROM_USER AS rol,
+    FROM_HOST AS rol_host
+FROM mysql.role_edges
+ORDER BY TO_USER, FROM_USER;
+
+-- =====================================================
+-- 9. Verificar procedimientos almacenados
+-- =====================================================
+
+SHOW PROCEDURE STATUS
+WHERE Db = 'db_test_8b';
+
+-- =====================================================
+-- 10. Productos
+-- =====================================================
+
+-- Total de productos
+SELECT COUNT(*) AS total_productos
+FROM tb_products;
+
+-- Visualizar productos
+SELECT *
+FROM tb_products;
+
+-- =====================================================
+-- 11. Trazabilidad de productos
+-- =====================================================
+
+SELECT
+    p.id,
+    p.name,
+    p.description,
+    b.db_user AS inserted_by,
+    COALESCE(
+        GROUP_CONCAT(
+            DISTINCT re.FROM_USER
+            ORDER BY re.FROM_USER
+            SEPARATOR ', '
+        ),
+        'sin rol'
+    ) AS roles,
+    b.operation_description,
+    b.operation_date
+FROM tb_products p
+JOIN tb_logs b
+    ON b.operation_description LIKE CONCAT('%ID=', p.id, ',%')
+LEFT JOIN mysql.role_edges re
+    ON re.TO_USER = SUBSTRING_INDEX(b.db_user, '@', 1)
+WHERE b.table_operation = 'Create'
+  AND b.table_name = 'tb_products'
+GROUP BY
+    p.id,
+    p.name,
+    p.description,
+    b.db_user,
+    b.operation_description,
+    b.operation_date
+ORDER BY b.operation_date ASC;
+
+-- =====================================================
+-- 12. Visualizar la vista de trazabilidad de productos
+-- =====================================================
+
+SELECT *
+FROM vw_trazabilidad_productos
+LIMIT 10;
+
+SHOW FULL TABLES
+WHERE Table_type = 'VIEW';
