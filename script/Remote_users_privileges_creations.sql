@@ -22,6 +22,10 @@ CREATE ROLE IF NOT EXISTS 'user_not_registered';
 -- PRIVILEGIOS DE SUPER ADMIN
 GRANT ALL PRIVILEGES ON *.* TO 'super_admin' WITH GRANT OPTION;
 
+/*Asignar privilegios a un usuario sin rol, esto no es una buena practica, pero es bueno saber que se puede realizar y no estar obligatoriamente ligado con el rol */
+GRANT SELECT, INSERT, UPDATE, DELETE ON db_test_8b.tb_users TO 'aron'@'%';
+
+
 -- PRIVILEGIOS DE SELLER
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON db_test_8b.tb_products
