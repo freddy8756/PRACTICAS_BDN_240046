@@ -266,3 +266,14 @@ LIMIT 10;
 
 SHOW FULL TABLES
 WHERE Table_type = 'VIEW';
+
+-- Consulta de trazabilidad de productos (últimos 10 movimientos)
+SELECT *
+FROM vw_trazabilidad_productos
+ORDER BY operation_date DESC
+LIMIT 10;
+
+-- Consulta de trazabilidad de usuarios (orden cronológico ascendente)
+SELECT *
+FROM vw_trazabilidad_usuarios
+ORDER BY operation_date ASC;
