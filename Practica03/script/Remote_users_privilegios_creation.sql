@@ -40,6 +40,11 @@ GRANT SELECT ON
 db_test_8b.tbc_categorias
 TO 'support';
 
+-- privilegios para support en categorias
+GRANT SELECT, INSERT, UPDATE
+ON db_test_8b.tbc_categorias
+TO 'support';
+
 -- ASIGNACIÓN DE ROLES
 GRANT 'super_admin' TO 'root'@'%';
 GRANT 'admin' TO 'marco.ramirez'@'%';
