@@ -1,0 +1,1 @@
+{"name":"db-test-8b-eer","private":true,"type":"module","scripts":{"analyze":"node analyze.mjs","start":"node server.mjs"}}
