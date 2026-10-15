@@ -1,0 +1,43 @@
+services:
+
+  postgres_240046:
+    image: postgres:17
+    container_name: postgres_240046
+    restart: always
+
+    environment:
+      POSTGRES_DB: db_test_8b
+      POSTGRES_USER: angel
+      POSTGRES_PASSWORD: sol
+
+    ports:
+      - "40047:5432"
+
+    volumes:
+      - postgres_data_240046:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U angel -d db_test_8b"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_global
+    restart: always
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "240046@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "sol"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+
+    ports:
+      - "40046:80"
+
+    depends_on:
+      - postgres_240046
+
+volumes:
+  postgres_data_240046:
+    driver: local
