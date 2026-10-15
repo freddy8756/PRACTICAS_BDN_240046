@@ -10,3 +10,4 @@ periodo:Septiembre -diciembre 2026
 |2.|conexiones remotas para bases de datos sql|crear y administrar usuarios y privilegio|60|🟢concluida|
 |3.|manipulacion de datos en conexiones remotas a bases de datos relacionales|crear procedimientos almacenados, funciones, tablas derivado, importacion de datos|??|🟡En proceso|
 |4.|Examen practico instalacion de postgre y MySQL en un VPS| Instalar, configurar, desplegar y simular datos en los servicios de bases de datos relacionales remotas|100|🟡en proceso|
+|5.|Agregacion de codex y la carpeta eer para visualizar las tablas|descargar y usar|100|🟢concluida|
