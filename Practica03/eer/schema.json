@@ -8,6 +8,127 @@
   "source": "respaldo_1410.sql",
   "tables": [
     {
+      "name": "tb_buyer_orders",
+      "columns": [
+        {
+          "name": "ID",
+          "ordinal": 1,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": [],
+          "autoIncrement": true,
+          "primaryKey": true
+        },
+        {
+          "name": "seller_ID",
+          "ordinal": 2,
+          "type": "int",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "seller_ID"
+          ],
+          "foreignKeys": [
+            {
+              "name": "tb_buyer_orders_ibfk_1",
+              "table": "tb_users",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "subtotal",
+          "ordinal": 3,
+          "type": "decimal(12,2)",
+          "nullable": false,
+          "attributes": [],
+          "default": "'0.00'"
+        },
+        {
+          "name": "shipping_cost",
+          "ordinal": 4,
+          "type": "decimal(12,2)",
+          "nullable": false,
+          "attributes": [],
+          "default": "'0.00'"
+        },
+        {
+          "name": "fulfillment_status",
+          "ordinal": 5,
+          "type": "enum('Pending','Accepted','Preparing','Sent','Delivered','Canceled','Returned')",
+          "nullable": false,
+          "attributes": [],
+          "default": "'Pending'"
+        },
+        {
+          "name": "status",
+          "ordinal": 6,
+          "type": "bit(1)",
+          "nullable": false,
+          "attributes": [],
+          "default": "b'1'"
+        },
+        {
+          "name": "creation_date",
+          "ordinal": 7,
+          "type": "datetime",
+          "nullable": false,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "last_update",
+          "ordinal": 8,
+          "type": "datetime",
+          "nullable": true,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP",
+          "onUpdate": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primaryKey": [
+        "ID"
+      ],
+      "foreignKeys": [
+        {
+          "name": "tb_buyer_orders_ibfk_1",
+          "columns": [
+            "seller_ID"
+          ],
+          "referencedTable": "tb_users",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "seller_ID",
+          "type": "INDEX",
+          "columns": [
+            "seller_ID"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "name": "tb_buyer_orders_chk_1",
+          "expression": "(`subtotal`>=0)"
+        },
+        {
+          "name": "tb_buyer_orders_chk_2",
+          "expression": "(`shipping_cost`>=0)"
+        }
+      ],
+      "engine": "InnoDB",
+      "options": "NOT NULL DEFAULT '0.00',\r\n  `shipping_cost` decimal(12,2) NOT NULL DEFAULT '0.00',\r\n  `fulfillment_status` enum('Pending','Accepted','Preparing','Sent','Delivered','Canceled','Returned') NOT NULL DEFAULT 'Pending',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `seller_ID` (`seller_ID`),\r\n  CONSTRAINT `tb_buyer_orders_ibfk_1` FOREIGN KEY (`seller_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `tb_buyer_orders_chk_1` CHECK ((`subtotal` >= 0)),\r\n  CONSTRAINT `tb_buyer_orders_chk_2` CHECK ((`shipping_cost` >= 0))\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 0
+    },
+    {
       "name": "tb_carts",
       "columns": [
         {
@@ -169,8 +290,153 @@
       "indexes": [],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=82723 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 5205
+      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=83137 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 5609
+    },
+    {
+      "name": "tb_people",
+      "columns": [
+        {
+          "name": "person_ID",
+          "ordinal": 1,
+          "type": "bigint unsigned",
+          "nullable": false,
+          "attributes": [],
+          "autoIncrement": true,
+          "primaryKey": true
+        },
+        {
+          "name": "user_ID",
+          "ordinal": 2,
+          "type": "int",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL",
+          "indexes": [
+            "user_ID"
+          ],
+          "unique": true,
+          "foreignKeys": [
+            {
+              "name": "fk_people_users",
+              "table": "tb_users",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "courtesy_title",
+          "ordinal": 3,
+          "type": "varchar(20)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "given_names",
+          "ordinal": 4,
+          "type": "varchar(150)",
+          "nullable": false,
+          "attributes": []
+        },
+        {
+          "name": "family_names",
+          "ordinal": 5,
+          "type": "varchar(150)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "birth_date",
+          "ordinal": 6,
+          "type": "date",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "gender",
+          "ordinal": 7,
+          "type": "enum('Hombre','Mujer','Prefiero no decirlo')",
+          "nullable": false,
+          "attributes": [],
+          "default": "'Prefiero no decirlo'"
+        },
+        {
+          "name": "country_code",
+          "ordinal": 8,
+          "type": "char(2)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "phone",
+          "ordinal": 9,
+          "type": "varchar(25)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "status",
+          "ordinal": 10,
+          "type": "bit(1)",
+          "nullable": true,
+          "attributes": [],
+          "default": "b'1'"
+        },
+        {
+          "name": "creation_date",
+          "ordinal": 11,
+          "type": "datetime",
+          "nullable": true,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "last_update",
+          "ordinal": 12,
+          "type": "datetime",
+          "nullable": true,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP",
+          "onUpdate": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primaryKey": [
+        "person_ID"
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_people_users",
+          "columns": [
+            "user_ID"
+          ],
+          "referencedTable": "tb_users",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "user_ID",
+          "type": "UNIQUE",
+          "columns": [
+            "user_ID"
+          ]
+        }
+      ],
+      "checks": [],
+      "engine": "InnoDB",
+      "options": "DEFAULT NULL,\r\n  `given_names` varchar(150) NOT NULL,\r\n  `family_names` varchar(150) DEFAULT NULL,\r\n  `birth_date` date DEFAULT NULL,\r\n  `gender` enum('Hombre','Mujer','Prefiero no decirlo') NOT NULL DEFAULT 'Prefiero no decirlo',\r\n  `country_code` char(2) DEFAULT NULL,\r\n  `phone` varchar(25) DEFAULT NULL,\r\n  `status` bit(1) DEFAULT b'1',\r\n  `creation_date` datetime DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`person_ID`),\r\n  UNIQUE KEY `user_ID` (`user_ID`),\r\n  CONSTRAINT `fk_people_users` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 2
     },
     {
       "name": "tb_product_categorias",
@@ -395,6 +661,162 @@
       "rowCount": 4990
     },
     {
+      "name": "tb_user_addresses",
+      "columns": [
+        {
+          "name": "ID",
+          "ordinal": 1,
+          "type": "bigint unsigned",
+          "nullable": false,
+          "attributes": [],
+          "autoIncrement": true,
+          "primaryKey": true
+        },
+        {
+          "name": "user_ID",
+          "ordinal": 2,
+          "type": "int",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "idx_user_addresses"
+          ],
+          "foreignKeys": [
+            {
+              "name": "fk_addresses_users",
+              "table": "tb_users",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "address_label",
+          "ordinal": 3,
+          "type": "varchar(100)",
+          "nullable": false,
+          "attributes": []
+        },
+        {
+          "name": "recipient_name",
+          "ordinal": 4,
+          "type": "varchar(150)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "recipient_phone",
+          "ordinal": 5,
+          "type": "varchar(25)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "delivery_instructions",
+          "ordinal": 6,
+          "type": "varchar(500)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "latitude",
+          "ordinal": 7,
+          "type": "decimal(10,7)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "longitude",
+          "ordinal": 8,
+          "type": "decimal(10,7)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "is_default",
+          "ordinal": 9,
+          "type": "bit(1)",
+          "nullable": false,
+          "attributes": [],
+          "default": "b'0'"
+        },
+        {
+          "name": "status",
+          "ordinal": 10,
+          "type": "bit(1)",
+          "nullable": false,
+          "attributes": [],
+          "default": "b'1'"
+        },
+        {
+          "name": "creation_date",
+          "ordinal": 11,
+          "type": "datetime",
+          "nullable": false,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "last_update",
+          "ordinal": 12,
+          "type": "datetime",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL",
+          "onUpdate": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primaryKey": [
+        "ID"
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_addresses_users",
+          "columns": [
+            "user_ID"
+          ],
+          "referencedTable": "tb_users",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "idx_user_addresses",
+          "type": "INDEX",
+          "columns": [
+            "user_ID"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "name": "chk_coordinates",
+          "expression": "(((`latitude` is null)and(`longitude` is null))or((`latitude` is not null)and(`longitude` is not null)))"
+        },
+        {
+          "name": "chk_latitude",
+          "expression": "((`latitude` is null)or(`latitude` between-(90)and 90))"
+        },
+        {
+          "name": "chk_longitude",
+          "expression": "((`longitude` is null)or(`longitude` between-(180)and 180))"
+        }
+      ],
+      "engine": "InnoDB",
+      "options": "NOT NULL,\r\n  `recipient_name` varchar(150) DEFAULT NULL,\r\n  `recipient_phone` varchar(25) DEFAULT NULL,\r\n  `delivery_instructions` varchar(500) DEFAULT NULL,\r\n  `latitude` decimal(10,7) DEFAULT NULL,\r\n  `longitude` decimal(10,7) DEFAULT NULL,\r\n  `is_default` bit(1) NOT NULL DEFAULT b'0',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `idx_user_addresses` (`user_ID`),\r\n  CONSTRAINT `fk_addresses_users` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `chk_coordinates` CHECK ((((`latitude` is null) and (`longitude` is null)) or ((`latitude` is not null) and (`longitude` is not null)))),\r\n  CONSTRAINT `chk_latitude` CHECK (((`latitude` is null) or (`latitude` between -(90) and 90))),\r\n  CONSTRAINT `chk_longitude` CHECK (((`longitude` is null) or (`longitude` between -(180) and 180)))\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 0
+    },
+    {
       "name": "tb_users",
       "columns": [
         {
@@ -490,8 +912,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `nick` varchar(50) NOT NULL,\r\n  `password` varchar(100) NOT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL,\r\n  `last_login` datetime DEFAULT NULL,\r\n  `status` tinyint(1) NOT NULL DEFAULT '1',\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `email` (`email`),\r\n  UNIQUE KEY `nick` (`nick`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 10
+      "options": "NOT NULL,\r\n  `nick` varchar(50) NOT NULL,\r\n  `password` varchar(100) NOT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL,\r\n  `last_login` datetime DEFAULT NULL,\r\n  `status` tinyint(1) NOT NULL DEFAULT '1',\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `email` (`email`),\r\n  UNIQUE KEY `nick` (`nick`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 12
     },
     {
       "name": "tbc_categorias",
@@ -605,6 +1027,569 @@
       "engine": "InnoDB",
       "options": "NOT NULL,\r\n  `description` text,\r\n  `sup_id_category` int unsigned DEFAULT NULL,\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `name` (`name`),\r\n  KEY `fk_superior_category` (`sup_id_category`),\r\n  CONSTRAINT `fk_superior_category` FOREIGN KEY (`sup_id_category`) REFERENCES `tbc_categorias` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
       "rowCount": 100
+    },
+    {
+      "name": "tbc_payment_methods",
+      "columns": [
+        {
+          "name": "ID",
+          "ordinal": 1,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": [],
+          "autoIncrement": true,
+          "primaryKey": true
+        },
+        {
+          "name": "code",
+          "ordinal": 2,
+          "type": "varchar(30)",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "uk_payment_code"
+          ],
+          "unique": true
+        },
+        {
+          "name": "description",
+          "ordinal": 3,
+          "type": "text",
+          "nullable": false,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "ordinal": 4,
+          "type": "bit(1)",
+          "nullable": false,
+          "attributes": [],
+          "default": "b'1'"
+        },
+        {
+          "name": "creation_date",
+          "ordinal": 5,
+          "type": "datetime",
+          "nullable": false,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "last_update",
+          "ordinal": 6,
+          "type": "datetime",
+          "nullable": true,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP",
+          "onUpdate": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primaryKey": [
+        "ID"
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "name": "uk_payment_code",
+          "type": "UNIQUE",
+          "columns": [
+            "code"
+          ]
+        }
+      ],
+      "checks": [],
+      "engine": "InnoDB",
+      "options": "NOT NULL,\r\n  `description` text NOT NULL,\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `uk_payment_code` (`code`)\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 0
+    },
+    {
+      "name": "tbd_address_components",
+      "columns": [
+        {
+          "name": "ID",
+          "ordinal": 1,
+          "type": "bigint unsigned",
+          "nullable": false,
+          "attributes": [],
+          "autoIncrement": true,
+          "primaryKey": true,
+          "indexes": [
+            "uk_address_component"
+          ],
+          "unique": true
+        },
+        {
+          "name": "address_ID",
+          "ordinal": 2,
+          "type": "bigint unsigned",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "uk_address_component",
+            "idx_address_parent"
+          ],
+          "unique": true,
+          "foreignKeys": [
+            {
+              "name": "fk_component_address",
+              "table": "tb_user_addresses",
+              "column": "ID",
+              "onDelete": "RESTRICT",
+              "onUpdate": null
+            },
+            {
+              "name": "fk_component_parent",
+              "table": "tbd_address_components",
+              "column": "address_ID",
+              "onDelete": "RESTRICT",
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "value",
+          "ordinal": 3,
+          "type": "varchar(255)",
+          "nullable": false,
+          "attributes": []
+        },
+        {
+          "name": "component_type",
+          "ordinal": 4,
+          "type": "varchar(50)",
+          "nullable": false,
+          "attributes": []
+        },
+        {
+          "name": "status",
+          "ordinal": 5,
+          "type": "bit(1)",
+          "nullable": false,
+          "attributes": [],
+          "default": "b'1'"
+        },
+        {
+          "name": "address_sup_ID",
+          "ordinal": 6,
+          "type": "bigint unsigned",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL",
+          "indexes": [
+            "idx_address_parent"
+          ],
+          "foreignKeys": [
+            {
+              "name": "fk_component_parent",
+              "table": "tbd_address_components",
+              "column": "ID",
+              "onDelete": "RESTRICT",
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "creation_date",
+          "ordinal": 7,
+          "type": "datetime",
+          "nullable": false,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "last_update",
+          "ordinal": 8,
+          "type": "datetime",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL",
+          "onUpdate": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primaryKey": [
+        "ID"
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_component_address",
+          "columns": [
+            "address_ID"
+          ],
+          "referencedTable": "tb_user_addresses",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": "RESTRICT",
+          "onUpdate": null
+        },
+        {
+          "name": "fk_component_parent",
+          "columns": [
+            "address_ID",
+            "address_sup_ID"
+          ],
+          "referencedTable": "tbd_address_components",
+          "referencedColumns": [
+            "address_ID",
+            "ID"
+          ],
+          "onDelete": "RESTRICT",
+          "onUpdate": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "uk_address_component",
+          "type": "UNIQUE",
+          "columns": [
+            "address_ID",
+            "ID"
+          ]
+        },
+        {
+          "name": "idx_address_parent",
+          "type": "INDEX",
+          "columns": [
+            "address_ID",
+            "address_sup_ID"
+          ]
+        }
+      ],
+      "checks": [],
+      "engine": "InnoDB",
+      "options": "NOT NULL,\r\n  `component_type` varchar(50) NOT NULL,\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `address_sup_ID` bigint unsigned DEFAULT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `uk_address_component` (`address_ID`,`ID`),\r\n  KEY `idx_address_parent` (`address_ID`,`address_sup_ID`),\r\n  CONSTRAINT `fk_component_address` FOREIGN KEY (`address_ID`) REFERENCES `tb_user_addresses` (`ID`) ON DELETE RESTRICT,\r\n  CONSTRAINT `fk_component_parent` FOREIGN KEY (`address_ID`, `address_sup_ID`) REFERENCES `tbd_address_components` (`address_ID`, `ID`) ON DELETE RESTRICT\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 0
+    },
+    {
+      "name": "tbd_carts_items",
+      "columns": [
+        {
+          "name": "cart_ID",
+          "ordinal": 1,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": [],
+          "primaryKey": true,
+          "foreignKeys": [
+            {
+              "name": "tbd_carts_items_ibfk_1",
+              "table": "tb_carts",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "provider_ID",
+          "ordinal": 2,
+          "type": "int",
+          "nullable": false,
+          "attributes": [],
+          "primaryKey": true,
+          "indexes": [
+            "provider_ID"
+          ],
+          "foreignKeys": [
+            {
+              "name": "tbd_carts_items_ibfk_2",
+              "table": "tb_users",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "product_ID",
+          "ordinal": 3,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": [],
+          "primaryKey": true,
+          "indexes": [
+            "product_ID"
+          ],
+          "foreignKeys": [
+            {
+              "name": "tbd_carts_items_ibfk_3",
+              "table": "tb_products",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "quantity",
+          "ordinal": 4,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": [],
+          "default": "'1'"
+        },
+        {
+          "name": "creation_date",
+          "ordinal": 5,
+          "type": "datetime",
+          "nullable": false,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primaryKey": [
+        "cart_ID",
+        "provider_ID",
+        "product_ID"
+      ],
+      "foreignKeys": [
+        {
+          "name": "tbd_carts_items_ibfk_1",
+          "columns": [
+            "cart_ID"
+          ],
+          "referencedTable": "tb_carts",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        },
+        {
+          "name": "tbd_carts_items_ibfk_2",
+          "columns": [
+            "provider_ID"
+          ],
+          "referencedTable": "tb_users",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        },
+        {
+          "name": "tbd_carts_items_ibfk_3",
+          "columns": [
+            "product_ID"
+          ],
+          "referencedTable": "tb_products",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "provider_ID",
+          "type": "INDEX",
+          "columns": [
+            "provider_ID"
+          ]
+        },
+        {
+          "name": "product_ID",
+          "type": "INDEX",
+          "columns": [
+            "product_ID"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "name": "chk_cart_quantity",
+          "expression": "(`quantity`>0)"
+        }
+      ],
+      "engine": "InnoDB",
+      "options": ",\r\n  KEY `provider_ID` (`provider_ID`),\r\n  KEY `product_ID` (`product_ID`),\r\n  CONSTRAINT `tbd_carts_items_ibfk_1` FOREIGN KEY (`cart_ID`) REFERENCES `tb_carts` (`ID`),\r\n  CONSTRAINT `tbd_carts_items_ibfk_2` FOREIGN KEY (`provider_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `tbd_carts_items_ibfk_3` FOREIGN KEY (`product_ID`) REFERENCES `tb_products` (`ID`),\r\n  CONSTRAINT `chk_cart_quantity` CHECK ((`quantity` > 0))\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 0
+    },
+    {
+      "name": "tbd_order_items",
+      "columns": [
+        {
+          "name": "ID",
+          "ordinal": 1,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": [],
+          "autoIncrement": true,
+          "primaryKey": true
+        },
+        {
+          "name": "seller_order_ID",
+          "ordinal": 2,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "seller_order_ID"
+          ],
+          "foreignKeys": [
+            {
+              "name": "tbd_order_items_ibfk_1",
+              "table": "tb_buyer_orders",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "product_ID",
+          "ordinal": 3,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "product_ID"
+          ],
+          "foreignKeys": [
+            {
+              "name": "tbd_order_items_ibfk_2",
+              "table": "tb_products",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "provider_ID",
+          "ordinal": 4,
+          "type": "int",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "provider_ID"
+          ],
+          "foreignKeys": [
+            {
+              "name": "tbd_order_items_ibfk_3",
+              "table": "tb_users",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "product_name",
+          "ordinal": 5,
+          "type": "varchar(255)",
+          "nullable": false,
+          "attributes": []
+        },
+        {
+          "name": "quantity",
+          "ordinal": 6,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": []
+        },
+        {
+          "name": "unit_price",
+          "ordinal": 7,
+          "type": "decimal(12,2)",
+          "nullable": false,
+          "attributes": []
+        },
+        {
+          "name": "subtotal",
+          "ordinal": 8,
+          "type": "decimal(12,2)",
+          "nullable": true,
+          "attributes": [],
+          "generated": "GENERATED ALWAYS AS((`quantity`*`unit_price`))STORED"
+        },
+        {
+          "name": "creation_date",
+          "ordinal": 9,
+          "type": "datetime",
+          "nullable": false,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primaryKey": [
+        "ID"
+      ],
+      "foreignKeys": [
+        {
+          "name": "tbd_order_items_ibfk_1",
+          "columns": [
+            "seller_order_ID"
+          ],
+          "referencedTable": "tb_buyer_orders",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        },
+        {
+          "name": "tbd_order_items_ibfk_2",
+          "columns": [
+            "product_ID"
+          ],
+          "referencedTable": "tb_products",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        },
+        {
+          "name": "tbd_order_items_ibfk_3",
+          "columns": [
+            "provider_ID"
+          ],
+          "referencedTable": "tb_users",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "seller_order_ID",
+          "type": "INDEX",
+          "columns": [
+            "seller_order_ID"
+          ]
+        },
+        {
+          "name": "product_ID",
+          "type": "INDEX",
+          "columns": [
+            "product_ID"
+          ]
+        },
+        {
+          "name": "provider_ID",
+          "type": "INDEX",
+          "columns": [
+            "provider_ID"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "name": "tbd_order_items_chk_1",
+          "expression": "(`quantity`>0)"
+        },
+        {
+          "name": "tbd_order_items_chk_2",
+          "expression": "(`unit_price`>=0)"
+        }
+      ],
+      "engine": "InnoDB",
+      "options": "NOT NULL,\r\n  `quantity` int unsigned NOT NULL,\r\n  `unit_price` decimal(12,2) NOT NULL,\r\n  `subtotal` decimal(12,2) GENERATED ALWAYS AS ((`quantity` * `unit_price`)) STORED,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `seller_order_ID` (`seller_order_ID`),\r\n  KEY `product_ID` (`product_ID`),\r\n  KEY `provider_ID` (`provider_ID`),\r\n  CONSTRAINT `tbd_order_items_ibfk_1` FOREIGN KEY (`seller_order_ID`) REFERENCES `tb_buyer_orders` (`ID`),\r\n  CONSTRAINT `tbd_order_items_ibfk_2` FOREIGN KEY (`product_ID`) REFERENCES `tb_products` (`ID`),\r\n  CONSTRAINT `tbd_order_items_ibfk_3` FOREIGN KEY (`provider_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `tbd_order_items_chk_1` CHECK ((`quantity` > 0)),\r\n  CONSTRAINT `tbd_order_items_chk_2` CHECK ((`unit_price` >= 0))\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 0
     },
     {
       "name": "tbd_products_users_providers",
@@ -732,6 +1717,186 @@
       "rowCount": 0
     },
     {
+      "name": "tbd_user_payment_methods",
+      "columns": [
+        {
+          "name": "ID",
+          "ordinal": 1,
+          "type": "bigint unsigned",
+          "nullable": false,
+          "attributes": [],
+          "autoIncrement": true,
+          "primaryKey": true
+        },
+        {
+          "name": "user_ID",
+          "ordinal": 2,
+          "type": "int",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "fk_payment_user"
+          ],
+          "foreignKeys": [
+            {
+              "name": "fk_payment_user",
+              "table": "tb_users",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "payment_method_type_ID",
+          "ordinal": 3,
+          "type": "int unsigned",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "fk_payment_method_type"
+          ],
+          "foreignKeys": [
+            {
+              "name": "fk_payment_method_type",
+              "table": "tbc_payment_methods",
+              "column": "ID",
+              "onDelete": null,
+              "onUpdate": null
+            }
+          ]
+        },
+        {
+          "name": "provider",
+          "ordinal": 4,
+          "type": "varchar(60)",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "uk_provider_method"
+          ],
+          "unique": true
+        },
+        {
+          "name": "provider_method_ref",
+          "ordinal": 5,
+          "type": "varchar(255)",
+          "nullable": false,
+          "attributes": [],
+          "indexes": [
+            "uk_provider_method"
+          ],
+          "unique": true
+        },
+        {
+          "name": "label",
+          "ordinal": 6,
+          "type": "varchar(100)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "last_four",
+          "ordinal": 7,
+          "type": "char(4)",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL"
+        },
+        {
+          "name": "is_default",
+          "ordinal": 8,
+          "type": "tinyint(1)",
+          "nullable": false,
+          "attributes": [],
+          "default": "'0'"
+        },
+        {
+          "name": "status",
+          "ordinal": 9,
+          "type": "bit(1)",
+          "nullable": false,
+          "attributes": [],
+          "default": "b'1'"
+        },
+        {
+          "name": "creation_date",
+          "ordinal": 10,
+          "type": "datetime",
+          "nullable": false,
+          "attributes": [],
+          "default": "CURRENT_TIMESTAMP"
+        },
+        {
+          "name": "last_update",
+          "ordinal": 11,
+          "type": "datetime",
+          "nullable": true,
+          "attributes": [],
+          "default": "NULL",
+          "onUpdate": "CURRENT_TIMESTAMP"
+        }
+      ],
+      "primaryKey": [
+        "ID"
+      ],
+      "foreignKeys": [
+        {
+          "name": "fk_payment_method_type",
+          "columns": [
+            "payment_method_type_ID"
+          ],
+          "referencedTable": "tbc_payment_methods",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        },
+        {
+          "name": "fk_payment_user",
+          "columns": [
+            "user_ID"
+          ],
+          "referencedTable": "tb_users",
+          "referencedColumns": [
+            "ID"
+          ],
+          "onDelete": null,
+          "onUpdate": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "uk_provider_method",
+          "type": "UNIQUE",
+          "columns": [
+            "provider",
+            "provider_method_ref"
+          ]
+        },
+        {
+          "name": "fk_payment_user",
+          "type": "INDEX",
+          "columns": [
+            "user_ID"
+          ]
+        },
+        {
+          "name": "fk_payment_method_type",
+          "type": "INDEX",
+          "columns": [
+            "payment_method_type_ID"
+          ]
+        }
+      ],
+      "checks": [],
+      "engine": "InnoDB",
+      "options": "NOT NULL,\r\n  `provider_method_ref` varchar(255) NOT NULL,\r\n  `label` varchar(100) DEFAULT NULL,\r\n  `last_four` char(4) DEFAULT NULL,\r\n  `is_default` tinyint(1) NOT NULL DEFAULT '0',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `uk_provider_method` (`provider`,`provider_method_ref`),\r\n  KEY `fk_payment_user` (`user_ID`),\r\n  KEY `fk_payment_method_type` (`payment_method_type_ID`),\r\n  CONSTRAINT `fk_payment_method_type` FOREIGN KEY (`payment_method_type_ID`) REFERENCES `tbc_payment_methods` (`ID`),\r\n  CONSTRAINT `fk_payment_user` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 0
+    },
+    {
       "name": "tbd_users_wishlist_products",
       "columns": [
         {
@@ -853,6 +2018,21 @@
   ],
   "relations": [
     {
+      "source": "tb_buyer_orders",
+      "sourceColumns": [
+        "seller_ID"
+      ],
+      "target": "tb_users",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "tb_buyer_orders_ibfk_1",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
       "source": "tb_carts",
       "sourceColumns": [
         "user_ID"
@@ -862,6 +2042,21 @@
         "ID"
       ],
       "name": "tb_carts_ibfk_1",
+      "kind": "declared",
+      "cardinality": "1:1",
+      "self": false,
+      "warning": null
+    },
+    {
+      "source": "tb_people",
+      "sourceColumns": [
+        "user_ID"
+      ],
+      "target": "tb_users",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "fk_people_users",
       "kind": "declared",
       "cardinality": "1:1",
       "self": false,
@@ -898,6 +2093,21 @@
       "warning": null
     },
     {
+      "source": "tb_user_addresses",
+      "sourceColumns": [
+        "user_ID"
+      ],
+      "target": "tb_users",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "fk_addresses_users",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
       "source": "tbc_categorias",
       "sourceColumns": [
         "sup_id_category"
@@ -910,6 +2120,128 @@
       "kind": "declared",
       "cardinality": "1:N",
       "self": true,
+      "warning": null
+    },
+    {
+      "source": "tbd_address_components",
+      "sourceColumns": [
+        "address_ID"
+      ],
+      "target": "tb_user_addresses",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "fk_component_address",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
+      "source": "tbd_address_components",
+      "sourceColumns": [
+        "address_ID",
+        "address_sup_ID"
+      ],
+      "target": "tbd_address_components",
+      "targetColumns": [
+        "address_ID",
+        "ID"
+      ],
+      "name": "fk_component_parent",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": true,
+      "warning": null
+    },
+    {
+      "source": "tbd_carts_items",
+      "sourceColumns": [
+        "cart_ID"
+      ],
+      "target": "tb_carts",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "tbd_carts_items_ibfk_1",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
+      "source": "tbd_carts_items",
+      "sourceColumns": [
+        "provider_ID"
+      ],
+      "target": "tb_users",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "tbd_carts_items_ibfk_2",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
+      "source": "tbd_carts_items",
+      "sourceColumns": [
+        "product_ID"
+      ],
+      "target": "tb_products",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "tbd_carts_items_ibfk_3",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
+      "source": "tbd_order_items",
+      "sourceColumns": [
+        "seller_order_ID"
+      ],
+      "target": "tb_buyer_orders",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "tbd_order_items_ibfk_1",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
+      "source": "tbd_order_items",
+      "sourceColumns": [
+        "product_ID"
+      ],
+      "target": "tb_products",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "tbd_order_items_ibfk_2",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
+      "source": "tbd_order_items",
+      "sourceColumns": [
+        "provider_ID"
+      ],
+      "target": "tb_users",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "tbd_order_items_ibfk_3",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
       "warning": null
     },
     {
@@ -937,6 +2269,36 @@
         "ID"
       ],
       "name": "fk_user1",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
+      "source": "tbd_user_payment_methods",
+      "sourceColumns": [
+        "payment_method_type_ID"
+      ],
+      "target": "tbc_payment_methods",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "fk_payment_method_type",
+      "kind": "declared",
+      "cardinality": "1:N",
+      "self": false,
+      "warning": null
+    },
+    {
+      "source": "tbd_user_payment_methods",
+      "sourceColumns": [
+        "user_ID"
+      ],
+      "target": "tb_users",
+      "targetColumns": [
+        "ID"
+      ],
+      "name": "fk_payment_user",
       "kind": "declared",
       "cardinality": "1:N",
       "self": false,
@@ -1000,35 +2362,81 @@
   "objects": {
     "views": [
       "vw_total_products_by_category",
+      "vw_trazabilidad_address_components",
+      "vw_trazabilidad_buyer_orders",
+      "vw_trazabilidad_carts",
+      "vw_trazabilidad_carts_items",
       "vw_trazabilidad_categorias",
+      "vw_trazabilidad_order_items",
+      "vw_trazabilidad_payment_methods",
+      "vw_trazabilidad_people",
       "vw_trazabilidad_product_categorias",
       "vw_trazabilidad_productos",
+      "vw_trazabilidad_products_users_providers",
+      "vw_trazabilidad_user_addresses",
+      "vw_trazabilidad_user_payment_methods",
+      "vw_trazabilidad_users_wishlist_products",
       "vw_trazabilidad_usuarios"
     ],
     "triggers": [
+      "trg_tb_buyer_orders_after_insert",
+      "trg_tb_buyer_orders_after_update",
+      "trg_tb_buyer_orders_after_delete",
+      "trg_tb_carts_after_insert",
+      "trg_tb_carts_after_update",
+      "trg_tb_carts_after_delete",
+      "trg_tb_people_after_insert",
+      "trg_tb_people_after_update",
+      "trg_tb_people_after_delete",
       "trg_tb_product_categorias_insert",
       "trg_tb_product_categorias_update",
       "trg_tb_product_categorias_delete",
       "trg_tb_products_after_insert",
       "trg_tb_products_after_update",
       "trg_tb_products_after_delete",
+      "trg_tb_user_addresses_after_insert",
+      "trg_tb_user_addresses_after_update",
+      "trg_tb_user_addresses_after_delete",
       "trg_users_after_insert",
       "trg_users_after_update",
       "trg_users_after_delete",
       "trg_tbc_categorias_after_insert",
       "trg_tbc_categorias_after_update",
-      "trg_tbc_categorias_after_delete"
+      "trg_tbc_categorias_after_delete",
+      "trg_tbc_payment_methods_after_insert",
+      "trg_tbc_payment_methods_after_update",
+      "trg_tbc_payment_methods_after_delete",
+      "trg_tbd_address_components_after_insert",
+      "trg_tbd_address_components_after_update",
+      "trg_tbd_address_components_after_delete",
+      "trg_tbd_carts_items_after_insert",
+      "trg_tbd_carts_items_after_update",
+      "trg_tbd_carts_items_after_delete",
+      "trg_tbd_order_items_after_insert",
+      "trg_tbd_order_items_after_update",
+      "trg_tbd_order_items_after_delete",
+      "trg_tbd_products_users_providers_after_insert",
+      "trg_tbd_products_users_providers_after_update",
+      "trg_tbd_products_users_providers_after_delete",
+      "trg_tbd_user_payment_methods_after_insert",
+      "trg_tbd_user_payment_methods_after_update",
+      "trg_tbd_user_payment_methods_after_delete",
+      "trg_tbd_users_wishlist_products_after_insert",
+      "trg_tbd_users_wishlist_products_after_update",
+      "trg_tbd_users_wishlist_products_after_delete"
     ],
     "procedures": [
+      "sp_register_new_user",
       "sp_restore_product",
       "sp_soft_delete_product"
     ],
     "functions": []
   },
   "inserts": {
-    "tb_logs": 5205,
+    "tb_logs": 5609,
+    "tb_people": 2,
     "tb_products": 4990,
-    "tb_users": 10,
+    "tb_users": 12,
     "tbc_categorias": 100
   },
   "dataMutations": [
@@ -1042,8 +2450,9 @@
     }
   ],
   "unsupportedStatements": [],
-  "statementCount": 367,
+  "statementCount": 1070,
   "associationTables": [
+    "tbd_carts_items",
     "tbd_products_users_providers",
     "tbd_users_wishlist_products"
   ],
@@ -1053,8 +2462,24 @@
       "confirmed": false
     },
     {
+      "table": "tbd_address_components",
+      "confirmed": false
+    },
+    {
+      "table": "tbd_carts_items",
+      "confirmed": true
+    },
+    {
+      "table": "tbd_order_items",
+      "confirmed": false
+    },
+    {
       "table": "tbd_products_users_providers",
       "confirmed": true
+    },
+    {
+      "table": "tbd_user_payment_methods",
+      "confirmed": false
     },
     {
       "table": "tbd_users_wishlist_products",
@@ -1067,8 +2492,8 @@
   ],
   "analysis": {
     "status": "complete",
-    "parsedAt": "2026-10-15T23:05:09.462Z",
-    "bytes": 1791671,
+    "parsedAt": "2026-10-25T19:18:41.679Z",
+    "bytes": 1996304,
     "limitation": "Lectura estática del respaldo; no se ejecutó SQL."
   }
 }
