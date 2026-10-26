@@ -5,7 +5,9 @@ import { fileURLToPath } from 'node:url';
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const schemaPath = path.join(directory, 'schema.json');
 const outputPath = path.join(directory, 'README_DICCIONARIO.md');
-const htmlDirectory = path.join(directory, 'docs');
+// GitHub Pages publishes from /docs at the repository root. This project lives
+// in Practica03/eer, so move two levels up before choosing the output folder.
+const htmlDirectory = path.resolve(directory, '..', '..', 'docs');
 const htmlPath = path.join(htmlDirectory, 'index.html');
 
 const schema = JSON.parse(await readFile(schemaPath, 'utf8'));
