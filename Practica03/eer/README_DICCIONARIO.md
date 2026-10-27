@@ -10,7 +10,7 @@
 | Bases declaradas | db_test_8b |
 | Archivo fuente | respaldo_1410.sql |
 | Estado del análisis | complete |
-| Analizado en | 2026-10-25T19:18:41.679Z |
+| Analizado en | 2026-10-27T05:27:17.110Z |
 | Limitación | Lectura estática del respaldo; no se ejecutó SQL. |
 
 ## Estadísticas
@@ -26,9 +26,9 @@
 | Relaciones | 21 |
 | Vistas | 16 |
 | Triggers | 45 |
-| Procedimientos almacenados | 3 |
-| Filas indicadas por el esquema | 10713 |
-| Sentencias analizadas | 1070 |
+| Procedimientos almacenados | 13 |
+| Filas indicadas por el esquema | 47713 |
+| Sentencias analizadas | 1216 |
 
 > Los conteos de filas corresponden a los valores registrados en el esquema; consulta las advertencias para conocer su alcance.
 
@@ -99,7 +99,7 @@
 ### `tb_logs`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 5609
+- **Filas reportadas:** 24109
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -124,7 +124,7 @@ _Sin índices adicionales._
 ### `tb_people`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 2
+- **Filas reportadas:** 9002
 - **Clave primaria:** `person_ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -255,7 +255,7 @@ _Sin claves foráneas._
 ### `tb_users`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 12
+- **Filas reportadas:** 9512
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -635,6 +635,16 @@ _Sin claves foráneas._
 
 ## Procedimientos almacenados
 
+- `sp_generate_2000_multinational_users`
+- `sp_generate_5000_users_probability`
+- `sp_generate_500_users`
+- `sp_generate_age`
+- `sp_generate_country`
+- `sp_generate_email`
+- `sp_generate_nick`
+- `sp_generate_status`
+- `sp_insert_person`
+- `sp_insert_user`
 - `sp_register_new_user`
 - `sp_restore_product`
 - `sp_soft_delete_product`

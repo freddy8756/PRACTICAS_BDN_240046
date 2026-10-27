@@ -290,8 +290,8 @@
       "indexes": [],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=83137 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 5609
+      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=101637 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 24109
     },
     {
       "name": "tb_people",
@@ -435,8 +435,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "DEFAULT NULL,\r\n  `given_names` varchar(150) NOT NULL,\r\n  `family_names` varchar(150) DEFAULT NULL,\r\n  `birth_date` date DEFAULT NULL,\r\n  `gender` enum('Hombre','Mujer','Prefiero no decirlo') NOT NULL DEFAULT 'Prefiero no decirlo',\r\n  `country_code` char(2) DEFAULT NULL,\r\n  `phone` varchar(25) DEFAULT NULL,\r\n  `status` bit(1) DEFAULT b'1',\r\n  `creation_date` datetime DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`person_ID`),\r\n  UNIQUE KEY `user_ID` (`user_ID`),\r\n  CONSTRAINT `fk_people_users` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 2
+      "options": "DEFAULT NULL,\r\n  `given_names` varchar(150) NOT NULL,\r\n  `family_names` varchar(150) DEFAULT NULL,\r\n  `birth_date` date DEFAULT NULL,\r\n  `gender` enum('Hombre','Mujer','Prefiero no decirlo') NOT NULL DEFAULT 'Prefiero no decirlo',\r\n  `country_code` char(2) DEFAULT NULL,\r\n  `phone` varchar(25) DEFAULT NULL,\r\n  `status` bit(1) DEFAULT b'1',\r\n  `creation_date` datetime DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`person_ID`),\r\n  UNIQUE KEY `user_ID` (`user_ID`),\r\n  CONSTRAINT `fk_people_users` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=9013 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 9002
     },
     {
       "name": "tb_product_categorias",
@@ -912,8 +912,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `nick` varchar(50) NOT NULL,\r\n  `password` varchar(100) NOT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL,\r\n  `last_login` datetime DEFAULT NULL,\r\n  `status` tinyint(1) NOT NULL DEFAULT '1',\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `email` (`email`),\r\n  UNIQUE KEY `nick` (`nick`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 12
+      "options": "NOT NULL,\r\n  `nick` varchar(50) NOT NULL,\r\n  `password` varchar(100) NOT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL,\r\n  `last_login` datetime DEFAULT NULL,\r\n  `status` tinyint(1) NOT NULL DEFAULT '1',\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `email` (`email`),\r\n  UNIQUE KEY `nick` (`nick`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=9525 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 9512
     },
     {
       "name": "tbc_categorias",
@@ -2426,6 +2426,16 @@
       "trg_tbd_users_wishlist_products_after_delete"
     ],
     "procedures": [
+      "sp_generate_2000_multinational_users",
+      "sp_generate_5000_users_probability",
+      "sp_generate_500_users",
+      "sp_generate_age",
+      "sp_generate_country",
+      "sp_generate_email",
+      "sp_generate_nick",
+      "sp_generate_status",
+      "sp_insert_person",
+      "sp_insert_user",
       "sp_register_new_user",
       "sp_restore_product",
       "sp_soft_delete_product"
@@ -2433,10 +2443,10 @@
     "functions": []
   },
   "inserts": {
-    "tb_logs": 5609,
-    "tb_people": 2,
+    "tb_logs": 24109,
+    "tb_people": 9002,
     "tb_products": 4990,
-    "tb_users": 12,
+    "tb_users": 9512,
     "tbc_categorias": 100
   },
   "dataMutations": [
@@ -2450,7 +2460,7 @@
     }
   ],
   "unsupportedStatements": [],
-  "statementCount": 1070,
+  "statementCount": 1216,
   "associationTables": [
     "tbd_carts_items",
     "tbd_products_users_providers",
@@ -2492,8 +2502,8 @@
   ],
   "analysis": {
     "status": "complete",
-    "parsedAt": "2026-10-25T19:18:41.679Z",
-    "bytes": 1996304,
+    "parsedAt": "2026-10-27T05:27:17.110Z",
+    "bytes": 9100415,
     "limitation": "Lectura estática del respaldo; no se ejecutó SQL."
   }
 }
