@@ -4,7 +4,7 @@ USE db_test_8b;
 -- CREACIÓN DE USUARIOS
 -- ==========================================
 
-CREATE USER IF NOT EXISTS 'angeleutiquio.cruz'IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'angeleutiquio.cruz'@'%' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'diego'@'%' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'osmar'@'%' IDENTIFIED BY '1234';
 CREATE USER IF NOT EXISTS 'damari'@'%' IDENTIFIED BY '1234';
