@@ -1,7 +1,7 @@
 # Practica de lla asignatura de base de datos en la nube 
 ## Ingenieria en tecnologias de la informacion e inovacion digital
 #### Alumno: Angel Eutiquio cruz huerta
-periodo:Septiembre -diciembre 2026.
+periodo:Septiembre -diciembre 2026
 ---
 ### Tabla de practicas de la materia
 |No.|Nombre| Descripcion|potenciador|estatus|
