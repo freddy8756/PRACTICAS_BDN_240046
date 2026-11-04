@@ -10,25 +10,25 @@
 | Bases declaradas | db_test_8b |
 | Archivo fuente | respaldo_1410.sql |
 | Estado del análisis | complete |
-| Analizado en | 2026-10-27T05:27:17.110Z |
+| Analizado en | 2026-11-04T21:18:07.452Z |
 | Limitación | Lectura estática del respaldo; no se ejecutó SQL. |
 
 ## Estadísticas
 
 | Métrica | Cantidad |
 | --- | ---: |
-| Tablas | 16 |
-| Columnas | 126 |
-| Tablas con clave primaria | 16 |
-| Claves foráneas | 21 |
-| Índices | 25 |
-| Restricciones CHECK | 8 |
-| Relaciones | 21 |
-| Vistas | 16 |
-| Triggers | 45 |
-| Procedimientos almacenados | 13 |
-| Filas indicadas por el esquema | 47713 |
-| Sentencias analizadas | 1216 |
+| Tablas | 25 |
+| Columnas | 192 |
+| Tablas con clave primaria | 25 |
+| Claves foráneas | 36 |
+| Índices | 41 |
+| Restricciones CHECK | 9 |
+| Relaciones | 36 |
+| Vistas | 25 |
+| Triggers | 72 |
+| Procedimientos almacenados | 21 |
+| Filas indicadas por el esquema | 87713 |
+| Sentencias analizadas | 1922 |
 
 > Los conteos de filas corresponden a los valores registrados en el esquema; consulta las advertencias para conocer su alcance.
 
@@ -99,7 +99,7 @@
 ### `tb_logs`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 24109
+- **Filas reportadas:** 62609
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -121,10 +121,99 @@ _Sin claves foráneas._
 
 _Sin índices adicionales._
 
+### `tb_order_cancellations`
+
+- **Motor:** InnoDB
+- **Filas reportadas:** 0
+- **Clave primaria:** `ID`
+
+| # | Columna | Tipo | Nula | Predeterminado | Atributos |
+| ---: | --- | --- | :---: | --- | --- |
+| 1 | `ID` | `bigint unsigned` | No | `—` | PK, AUTO_INCREMENT |
+| 2 | `buyer_order_ID` | `int unsigned` | No | `—` | FK → tb_buyer_orders(ID) |
+| 3 | `user_ID` | `int` | No | `—` | FK → tb_users(ID) |
+| 4 | `cancellation_reason` | `varchar(500)` | No | `—` | — |
+| 5 | `approval_status` | `enum('Pending','Approved','Rejected')` | No | `'Pending'` | — |
+| 6 | `status` | `bit(1)` | No | `b'1'` | — |
+| 7 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
+
+**Claves foráneas**
+
+| Nombre | Columnas locales | Tabla referenciada | Columnas referenciadas | ON DELETE | ON UPDATE |
+| --- | --- | --- | --- | --- | --- |
+| `fk_cancellation_order` | `buyer_order_ID` | `tb_buyer_orders` | `ID` | — | — |
+| `fk_cancellation_user` | `user_ID` | `tb_users` | `ID` | — | — |
+
+**Índices**
+
+| Nombre | Tipo | Columnas |
+| --- | --- | --- |
+| `fk_cancellation_order` | INDEX | `buyer_order_ID` |
+| `fk_cancellation_user` | INDEX | `user_ID` |
+
+### `tb_payment_transactions`
+
+- **Motor:** InnoDB
+- **Filas reportadas:** 0
+- **Clave primaria:** `ID`
+
+| # | Columna | Tipo | Nula | Predeterminado | Atributos |
+| ---: | --- | --- | :---: | --- | --- |
+| 1 | `ID` | `bigint unsigned` | No | `—` | PK, AUTO_INCREMENT |
+| 2 | `payment_ID` | `bigint unsigned` | No | `—` | FK → tb_payments(ID) |
+| 3 | `transaction_code` | `varchar(100)` | No | `—` | — |
+| 4 | `provider` | `varchar(60)` | No | `—` | — |
+| 5 | `transaction_status` | `enum('Pending','Approved','Rejected','Canceled')` | No | `—` | — |
+| 6 | `response_message` | `varchar(500)` | Sí | `NULL` | — |
+| 7 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
+
+**Claves foráneas**
+
+| Nombre | Columnas locales | Tabla referenciada | Columnas referenciadas | ON DELETE | ON UPDATE |
+| --- | --- | --- | --- | --- | --- |
+| `fk_transaction_payment` | `payment_ID` | `tb_payments` | `ID` | — | — |
+
+**Índices**
+
+| Nombre | Tipo | Columnas |
+| --- | --- | --- |
+| `fk_transaction_payment` | INDEX | `payment_ID` |
+
+### `tb_payments`
+
+- **Motor:** InnoDB
+- **Filas reportadas:** 0
+- **Clave primaria:** `ID`
+
+| # | Columna | Tipo | Nula | Predeterminado | Atributos |
+| ---: | --- | --- | :---: | --- | --- |
+| 1 | `ID` | `bigint unsigned` | No | `—` | PK, AUTO_INCREMENT |
+| 2 | `buyer_order_ID` | `int unsigned` | No | `—` | FK → tb_buyer_orders(ID) |
+| 3 | `payment_method_ID` | `bigint unsigned` | No | `—` | FK → tbd_user_payment_methods(ID) |
+| 4 | `amount` | `decimal(12,2)` | No | `—` | — |
+| 5 | `payment_status` | `enum('Pending','Approved','Rejected','Refunded')` | No | `'Pending'` | — |
+| 6 | `status` | `bit(1)` | No | `b'1'` | — |
+| 7 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
+| 8 | `last_update` | `datetime` | Sí | `CURRENT_TIMESTAMP` | — |
+
+**Claves foráneas**
+
+| Nombre | Columnas locales | Tabla referenciada | Columnas referenciadas | ON DELETE | ON UPDATE |
+| --- | --- | --- | --- | --- | --- |
+| `fk_payment_order` | `buyer_order_ID` | `tb_buyer_orders` | `ID` | — | — |
+| `fk_payment_user_method` | `payment_method_ID` | `tbd_user_payment_methods` | `ID` | — | — |
+
+**Índices**
+
+| Nombre | Tipo | Columnas |
+| --- | --- | --- |
+| `fk_payment_order` | INDEX | `buyer_order_ID` |
+| `fk_payment_user_method` | INDEX | `payment_method_ID` |
+
 ### `tb_people`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 9002
+- **Filas reportadas:** 10002
 - **Clave primaria:** `person_ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -183,6 +272,43 @@ _Sin índices adicionales._
 | `fk_product_categoria_producto` | INDEX | `product_ID` |
 | `fk_product_categoria_categoria` | INDEX | `category_ID` |
 
+### `tb_product_reviews`
+
+- **Motor:** InnoDB
+- **Filas reportadas:** 0
+- **Clave primaria:** `ID`
+
+| # | Columna | Tipo | Nula | Predeterminado | Atributos |
+| ---: | --- | --- | :---: | --- | --- |
+| 1 | `ID` | `bigint unsigned` | No | `—` | PK, AUTO_INCREMENT |
+| 2 | `product_ID` | `int unsigned` | No | `—` | FK → tb_products(ID) |
+| 3 | `user_ID` | `int` | No | `—` | FK → tb_users(ID) |
+| 4 | `rating` | `tinyint unsigned` | No | `—` | — |
+| 5 | `review` | `text` | Sí | `—` | — |
+| 6 | `status` | `bit(1)` | No | `b'1'` | — |
+| 7 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
+| 8 | `last_update` | `datetime` | Sí | `CURRENT_TIMESTAMP` | — |
+
+**Claves foráneas**
+
+| Nombre | Columnas locales | Tabla referenciada | Columnas referenciadas | ON DELETE | ON UPDATE |
+| --- | --- | --- | --- | --- | --- |
+| `fk_review_product` | `product_ID` | `tb_products` | `ID` | — | — |
+| `fk_review_user` | `user_ID` | `tb_users` | `ID` | — | — |
+
+**Índices**
+
+| Nombre | Tipo | Columnas |
+| --- | --- | --- |
+| `fk_review_product` | INDEX | `product_ID` |
+| `fk_review_user` | INDEX | `user_ID` |
+
+**Restricciones CHECK**
+
+| Nombre | Expresión |
+| --- | --- |
+| `chk_rating` | `(\`rating\` between 1 and 5)` |
+
 ### `tb_products`
 
 - **Motor:** InnoDB
@@ -210,6 +336,71 @@ _Sin claves foráneas._
 | Nombre | Tipo | Columnas |
 | --- | --- | --- |
 | `SKU` | UNIQUE | `SKU` |
+
+### `tb_returns`
+
+- **Motor:** InnoDB
+- **Filas reportadas:** 0
+- **Clave primaria:** `ID`
+
+| # | Columna | Tipo | Nula | Predeterminado | Atributos |
+| ---: | --- | --- | :---: | --- | --- |
+| 1 | `ID` | `bigint unsigned` | No | `—` | PK, AUTO_INCREMENT |
+| 2 | `buyer_order_ID` | `int unsigned` | No | `—` | FK → tb_buyer_orders(ID) |
+| 3 | `user_ID` | `int` | No | `—` | FK → tb_users(ID) |
+| 4 | `reason` | `varchar(500)` | No | `—` | — |
+| 5 | `return_status` | `enum('Requested','Approved','Rejected','Completed')` | No | `'Requested'` | — |
+| 6 | `status` | `bit(1)` | No | `b'1'` | — |
+| 7 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
+| 8 | `last_update` | `datetime` | Sí | `CURRENT_TIMESTAMP` | — |
+
+**Claves foráneas**
+
+| Nombre | Columnas locales | Tabla referenciada | Columnas referenciadas | ON DELETE | ON UPDATE |
+| --- | --- | --- | --- | --- | --- |
+| `fk_return_order` | `buyer_order_ID` | `tb_buyer_orders` | `ID` | — | — |
+| `fk_return_user` | `user_ID` | `tb_users` | `ID` | — | — |
+
+**Índices**
+
+| Nombre | Tipo | Columnas |
+| --- | --- | --- |
+| `fk_return_order` | INDEX | `buyer_order_ID` |
+| `fk_return_user` | INDEX | `user_ID` |
+
+### `tb_shipments`
+
+- **Motor:** InnoDB
+- **Filas reportadas:** 0
+- **Clave primaria:** `ID`
+
+| # | Columna | Tipo | Nula | Predeterminado | Atributos |
+| ---: | --- | --- | :---: | --- | --- |
+| 1 | `ID` | `bigint unsigned` | No | `—` | PK, AUTO_INCREMENT |
+| 2 | `buyer_order_ID` | `int unsigned` | No | `—` | FK → tb_buyer_orders(ID) |
+| 3 | `address_ID` | `bigint unsigned` | No | `—` | FK → tb_user_addresses(ID) |
+| 4 | `tracking_number` | `varchar(120)` | Sí | `NULL` | — |
+| 5 | `carrier` | `varchar(100)` | Sí | `NULL` | — |
+| 6 | `shipment_status` | `enum('Pending','Preparing','Shipped','Delivered','Lost','Returned')` | No | `'Pending'` | — |
+| 7 | `shipped_date` | `datetime` | Sí | `NULL` | — |
+| 8 | `delivered_date` | `datetime` | Sí | `NULL` | — |
+| 9 | `status` | `bit(1)` | No | `b'1'` | — |
+| 10 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
+| 11 | `last_update` | `datetime` | Sí | `CURRENT_TIMESTAMP` | — |
+
+**Claves foráneas**
+
+| Nombre | Columnas locales | Tabla referenciada | Columnas referenciadas | ON DELETE | ON UPDATE |
+| --- | --- | --- | --- | --- | --- |
+| `fk_shipment_address` | `address_ID` | `tb_user_addresses` | `ID` | — | — |
+| `fk_shipment_order` | `buyer_order_ID` | `tb_buyer_orders` | `ID` | — | — |
+
+**Índices**
+
+| Nombre | Tipo | Columnas |
+| --- | --- | --- |
+| `fk_shipment_order` | INDEX | `buyer_order_ID` |
+| `fk_shipment_address` | INDEX | `address_ID` |
 
 ### `tb_user_addresses`
 
@@ -255,7 +446,7 @@ _Sin claves foráneas._
 ### `tb_users`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 9512
+- **Filas reportadas:** 10012
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -334,6 +525,31 @@ _Sin claves foráneas._
 | --- | --- | --- |
 | `uk_payment_code` | UNIQUE | `code` |
 
+### `tbc_payment_methods_types`
+
+- **Motor:** InnoDB
+- **Filas reportadas:** 0
+- **Clave primaria:** `ID`
+
+| # | Columna | Tipo | Nula | Predeterminado | Atributos |
+| ---: | --- | --- | :---: | --- | --- |
+| 1 | `ID` | `int unsigned` | No | `—` | PK, AUTO_INCREMENT |
+| 2 | `name` | `varchar(100)` | No | `—` | UNIQUE |
+| 3 | `description` | `text` | Sí | `—` | — |
+| 4 | `status` | `bit(1)` | No | `b'1'` | — |
+| 5 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
+| 6 | `last_update` | `datetime` | Sí | `CURRENT_TIMESTAMP` | — |
+
+**Claves foráneas**
+
+_Sin claves foráneas._
+
+**Índices**
+
+| Nombre | Tipo | Columnas |
+| --- | --- | --- |
+| `uk_payment_method_type_name` | UNIQUE | `name` |
+
 ### `tbd_address_components`
 
 - **Motor:** InnoDB
@@ -364,6 +580,34 @@ _Sin claves foráneas._
 | --- | --- | --- |
 | `uk_address_component` | UNIQUE | `address_ID`, `ID` |
 | `idx_address_parent` | INDEX | `address_ID`, `address_sup_ID` |
+
+### `tbd_cancellation_items`
+
+- **Motor:** InnoDB
+- **Filas reportadas:** 0
+- **Clave primaria:** `ID`
+
+| # | Columna | Tipo | Nula | Predeterminado | Atributos |
+| ---: | --- | --- | :---: | --- | --- |
+| 1 | `ID` | `bigint unsigned` | No | `—` | PK, AUTO_INCREMENT |
+| 2 | `cancellation_ID` | `bigint unsigned` | No | `—` | FK → tb_order_cancellations(ID) |
+| 3 | `order_item_ID` | `int unsigned` | No | `—` | FK → tbd_order_items(ID) |
+| 4 | `quantity` | `int unsigned` | No | `—` | — |
+| 5 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
+
+**Claves foráneas**
+
+| Nombre | Columnas locales | Tabla referenciada | Columnas referenciadas | ON DELETE | ON UPDATE |
+| --- | --- | --- | --- | --- | --- |
+| `fk_cancel_item_cancel` | `cancellation_ID` | `tb_order_cancellations` | `ID` | — | — |
+| `fk_cancel_item_order` | `order_item_ID` | `tbd_order_items` | `ID` | — | — |
+
+**Índices**
+
+| Nombre | Tipo | Columnas |
+| --- | --- | --- |
+| `fk_cancel_item_cancel` | INDEX | `cancellation_ID` |
+| `fk_cancel_item_order` | INDEX | `order_item_ID` |
 
 ### `tbd_carts_items`
 
@@ -470,6 +714,35 @@ _Sin claves foráneas._
 | --- | --- | --- |
 | `fk_products2` | INDEX | `product_ID` |
 
+### `tbd_return_items`
+
+- **Motor:** InnoDB
+- **Filas reportadas:** 0
+- **Clave primaria:** `ID`
+
+| # | Columna | Tipo | Nula | Predeterminado | Atributos |
+| ---: | --- | --- | :---: | --- | --- |
+| 1 | `ID` | `bigint unsigned` | No | `—` | PK, AUTO_INCREMENT |
+| 2 | `return_ID` | `bigint unsigned` | No | `—` | FK → tb_returns(ID) |
+| 3 | `order_item_ID` | `int unsigned` | No | `—` | FK → tbd_order_items(ID) |
+| 4 | `quantity` | `int unsigned` | No | `—` | — |
+| 5 | `observation` | `varchar(500)` | Sí | `NULL` | — |
+| 6 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
+
+**Claves foráneas**
+
+| Nombre | Columnas locales | Tabla referenciada | Columnas referenciadas | ON DELETE | ON UPDATE |
+| --- | --- | --- | --- | --- | --- |
+| `fk_return_item_order` | `order_item_ID` | `tbd_order_items` | `ID` | — | — |
+| `fk_return_item_return` | `return_ID` | `tb_returns` | `ID` | — | — |
+
+**Índices**
+
+| Nombre | Tipo | Columnas |
+| --- | --- | --- |
+| `fk_return_item_return` | INDEX | `return_ID` |
+| `fk_return_item_order` | INDEX | `order_item_ID` |
+
 ### `tbd_user_payment_methods`
 
 - **Motor:** InnoDB
@@ -539,13 +812,26 @@ _Sin claves foráneas._
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `tb_buyer_orders` | `seller_ID` | `tb_users` | `ID` | 1:N | declared | `tb_buyer_orders_ibfk_1` | — |
 | `tb_carts` | `user_ID` | `tb_users` | `ID` | 1:1 | declared | `tb_carts_ibfk_1` | — |
+| `tb_order_cancellations` | `buyer_order_ID` | `tb_buyer_orders` | `ID` | 1:N | declared | `fk_cancellation_order` | — |
+| `tb_order_cancellations` | `user_ID` | `tb_users` | `ID` | 1:N | declared | `fk_cancellation_user` | — |
+| `tb_payment_transactions` | `payment_ID` | `tb_payments` | `ID` | 1:N | declared | `fk_transaction_payment` | — |
+| `tb_payments` | `buyer_order_ID` | `tb_buyer_orders` | `ID` | 1:N | declared | `fk_payment_order` | — |
+| `tb_payments` | `payment_method_ID` | `tbd_user_payment_methods` | `ID` | 1:N | declared | `fk_payment_user_method` | — |
 | `tb_people` | `user_ID` | `tb_users` | `ID` | 1:1 | declared | `fk_people_users` | — |
 | `tb_product_categorias` | `category_ID` | `tbc_categorias` | `ID` | 1:N | declared | `fk_product_categoria_categoria` | — |
 | `tb_product_categorias` | `product_ID` | `tb_products` | `ID` | 1:N | declared | `fk_product_categoria_producto` | — |
+| `tb_product_reviews` | `product_ID` | `tb_products` | `ID` | 1:N | declared | `fk_review_product` | — |
+| `tb_product_reviews` | `user_ID` | `tb_users` | `ID` | 1:N | declared | `fk_review_user` | — |
+| `tb_returns` | `buyer_order_ID` | `tb_buyer_orders` | `ID` | 1:N | declared | `fk_return_order` | — |
+| `tb_returns` | `user_ID` | `tb_users` | `ID` | 1:N | declared | `fk_return_user` | — |
+| `tb_shipments` | `address_ID` | `tb_user_addresses` | `ID` | 1:N | declared | `fk_shipment_address` | — |
+| `tb_shipments` | `buyer_order_ID` | `tb_buyer_orders` | `ID` | 1:N | declared | `fk_shipment_order` | — |
 | `tb_user_addresses` | `user_ID` | `tb_users` | `ID` | 1:N | declared | `fk_addresses_users` | — |
 | `tbc_categorias` | `sup_id_category` | `tbc_categorias` | `ID` | 1:N | declared | `fk_superior_category` | — |
 | `tbd_address_components` | `address_ID` | `tb_user_addresses` | `ID` | 1:N | declared | `fk_component_address` | — |
 | `tbd_address_components` | `address_ID`, `address_sup_ID` | `tbd_address_components` | `address_ID`, `ID` | 1:N | declared | `fk_component_parent` | — |
+| `tbd_cancellation_items` | `cancellation_ID` | `tb_order_cancellations` | `ID` | 1:N | declared | `fk_cancel_item_cancel` | — |
+| `tbd_cancellation_items` | `order_item_ID` | `tbd_order_items` | `ID` | 1:N | declared | `fk_cancel_item_order` | — |
 | `tbd_carts_items` | `cart_ID` | `tb_carts` | `ID` | 1:N | declared | `tbd_carts_items_ibfk_1` | — |
 | `tbd_carts_items` | `provider_ID` | `tb_users` | `ID` | 1:N | declared | `tbd_carts_items_ibfk_2` | — |
 | `tbd_carts_items` | `product_ID` | `tb_products` | `ID` | 1:N | declared | `tbd_carts_items_ibfk_3` | — |
@@ -554,6 +840,8 @@ _Sin claves foráneas._
 | `tbd_order_items` | `provider_ID` | `tb_users` | `ID` | 1:N | declared | `tbd_order_items_ibfk_3` | — |
 | `tbd_products_users_providers` | `product_ID` | `tb_products` | `ID` | 1:N | declared | `fk_products2` | — |
 | `tbd_products_users_providers` | `user_ID` | `tb_users` | `ID` | 1:N | declared | `fk_user1` | — |
+| `tbd_return_items` | `order_item_ID` | `tbd_order_items` | `ID` | 1:N | declared | `fk_return_item_order` | — |
+| `tbd_return_items` | `return_ID` | `tb_returns` | `ID` | 1:N | declared | `fk_return_item_return` | — |
 | `tbd_user_payment_methods` | `payment_method_type_ID` | `tbc_payment_methods` | `ID` | 1:N | declared | `fk_payment_method_type` | — |
 | `tbd_user_payment_methods` | `user_ID` | `tb_users` | `ID` | 1:N | declared | `fk_payment_user` | — |
 | `tbd_users_wishlist_products` | `product_ID` | `tb_products` | `ID` | 1:N | declared | `fk_wishlist_product` | — |
@@ -571,15 +859,24 @@ _Sin claves foráneas._
 - `vw_total_products_by_category`
 - `vw_trazabilidad_address_components`
 - `vw_trazabilidad_buyer_orders`
+- `vw_trazabilidad_cancellation_items`
 - `vw_trazabilidad_carts`
 - `vw_trazabilidad_carts_items`
 - `vw_trazabilidad_categorias`
+- `vw_trazabilidad_order_cancellations`
 - `vw_trazabilidad_order_items`
 - `vw_trazabilidad_payment_methods`
+- `vw_trazabilidad_payment_methods_types`
+- `vw_trazabilidad_payment_transactions`
+- `vw_trazabilidad_payments`
 - `vw_trazabilidad_people`
 - `vw_trazabilidad_product_categorias`
+- `vw_trazabilidad_product_reviews`
 - `vw_trazabilidad_productos`
 - `vw_trazabilidad_products_users_providers`
+- `vw_trazabilidad_return_items`
+- `vw_trazabilidad_returns`
+- `vw_trazabilidad_shipments`
 - `vw_trazabilidad_user_addresses`
 - `vw_trazabilidad_user_payment_methods`
 - `vw_trazabilidad_users_wishlist_products`
@@ -593,15 +890,33 @@ _Sin claves foráneas._
 - `trg_tb_carts_after_insert`
 - `trg_tb_carts_after_update`
 - `trg_tb_carts_after_delete`
+- `trg_tb_order_cancellations_after_insert`
+- `trg_tb_order_cancellations_after_update`
+- `trg_tb_order_cancellations_after_delete`
+- `trg_tb_payment_transactions_after_insert`
+- `trg_tb_payment_transactions_after_update`
+- `trg_tb_payment_transactions_after_delete`
+- `trg_tb_payments_after_insert`
+- `trg_tb_payments_after_update`
+- `trg_tb_payments_after_delete`
 - `trg_tb_people_after_insert`
 - `trg_tb_people_after_update`
 - `trg_tb_people_after_delete`
 - `trg_tb_product_categorias_insert`
 - `trg_tb_product_categorias_update`
 - `trg_tb_product_categorias_delete`
+- `trg_tb_product_reviews_after_insert`
+- `trg_tb_product_reviews_after_update`
+- `trg_tb_product_reviews_after_delete`
 - `trg_tb_products_after_insert`
 - `trg_tb_products_after_update`
 - `trg_tb_products_after_delete`
+- `trg_tb_returns_after_insert`
+- `trg_tb_returns_after_update`
+- `trg_tb_returns_after_delete`
+- `trg_tb_shipments_after_insert`
+- `trg_tb_shipments_after_update`
+- `trg_tb_shipments_after_delete`
 - `trg_tb_user_addresses_after_insert`
 - `trg_tb_user_addresses_after_update`
 - `trg_tb_user_addresses_after_delete`
@@ -614,9 +929,15 @@ _Sin claves foráneas._
 - `trg_tbc_payment_methods_after_insert`
 - `trg_tbc_payment_methods_after_update`
 - `trg_tbc_payment_methods_after_delete`
+- `trg_tbc_payment_methods_types_after_insert`
+- `trg_tbc_payment_methods_types_after_update`
+- `trg_tbc_payment_methods_types_after_delete`
 - `trg_tbd_address_components_after_insert`
 - `trg_tbd_address_components_after_update`
 - `trg_tbd_address_components_after_delete`
+- `trg_tbd_cancellation_items_after_insert`
+- `trg_tbd_cancellation_items_after_update`
+- `trg_tbd_cancellation_items_after_delete`
 - `trg_tbd_carts_items_after_insert`
 - `trg_tbd_carts_items_after_update`
 - `trg_tbd_carts_items_after_delete`
@@ -626,6 +947,9 @@ _Sin claves foráneas._
 - `trg_tbd_products_users_providers_after_insert`
 - `trg_tbd_products_users_providers_after_update`
 - `trg_tbd_products_users_providers_after_delete`
+- `trg_tbd_return_items_after_insert`
+- `trg_tbd_return_items_after_update`
+- `trg_tbd_return_items_after_delete`
 - `trg_tbd_user_payment_methods_after_insert`
 - `trg_tbd_user_payment_methods_after_update`
 - `trg_tbd_user_payment_methods_after_delete`
@@ -643,8 +967,16 @@ _Sin claves foráneas._
 - `sp_generate_email`
 - `sp_generate_nick`
 - `sp_generate_status`
+- `sp_insert_generated_user`
 - `sp_insert_person`
 - `sp_insert_user`
+- `sp_random_age`
+- `sp_random_country`
+- `sp_random_email_domain`
+- `sp_random_first_name`
+- `sp_random_gender`
+- `sp_random_last_name`
+- `sp_random_status`
 - `sp_register_new_user`
 - `sp_restore_product`
 - `sp_soft_delete_product`
