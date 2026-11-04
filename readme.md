@@ -11,3 +11,4 @@ periodo:Septiembre -diciembre 2026
 |3.|manipulacion de datos en conexiones remotas a bases de datos relacionales|crear procedimientos almacenados, funciones, tablas derivado, importacion de datos|??|🟡En proceso|
 |4.|Examen practico instalacion de postgre y MySQL en un VPS| Instalar, configurar, desplegar y simular datos en los servicios de bases de datos relacionales remotas junto a un manual de instalacion|100|🟡en proceso|
 |5.|Agregacion de codex y la carpeta eer para visualizar las tablas|descargar y usar|100|🟢concluida|
+|6.|Agregacion tablas restantes a bases de datos mysql, actualizacion de diccionario de datos y diagrama entidad relacion y fucion de la practica 03 con la rama master|100|🟢concluida|
