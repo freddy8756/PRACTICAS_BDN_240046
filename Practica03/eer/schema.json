@@ -290,8 +290,8 @@
       "indexes": [],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=142281 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 64654
+      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=145291 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 67664
     },
     {
       "name": "tb_order_cancellations",
@@ -934,8 +934,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_product_categoria_producto` (`product_ID`),\r\n  KEY `fk_product_categoria_categoria` (`category_ID`),\r\n  CONSTRAINT `fk_product_categoria_categoria` FOREIGN KEY (`category_ID`) REFERENCES `tbc_categorias` (`ID`),\r\n  CONSTRAINT `fk_product_categoria_producto` FOREIGN KEY (`product_ID`) REFERENCES `tb_products` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=58807 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 0
+      "options": "NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_product_categoria_producto` (`product_ID`),\r\n  KEY `fk_product_categoria_categoria` (`category_ID`),\r\n  CONSTRAINT `fk_product_categoria_categoria` FOREIGN KEY (`category_ID`) REFERENCES `tbc_categorias` (`ID`),\r\n  CONSTRAINT `fk_product_categoria_producto` FOREIGN KEY (`product_ID`) REFERENCES `tb_products` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=61876 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 3000
     },
     {
       "name": "tb_product_reviews",
@@ -1175,8 +1175,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `name` varchar(250) NOT NULL,\r\n  `description` text,\r\n  `current_price` decimal(10,2) NOT NULL DEFAULT '0.00',\r\n  `current_stock` int unsigned NOT NULL DEFAULT '0',\r\n  `status` tinyint(1) NOT NULL DEFAULT '1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `SKU` (`SKU`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=10246 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 6990
+      "options": "NOT NULL,\r\n  `name` varchar(250) NOT NULL,\r\n  `description` text,\r\n  `current_price` decimal(10,2) NOT NULL DEFAULT '0.00',\r\n  `current_stock` int unsigned NOT NULL DEFAULT '0',\r\n  `status` tinyint(1) NOT NULL DEFAULT '1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `SKU` (`SKU`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=10261 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 7000
     },
     {
       "name": "tb_returns",
@@ -3836,6 +3836,7 @@
       "sp_generate_nick",
       "sp_generate_products",
       "sp_generate_status",
+      "sp_insertar_1000_productos_categorias",
       "sp_insert_generated_user",
       "sp_insert_person",
       "sp_insert_user",
@@ -3855,11 +3856,12 @@
   "inserts": {
     "tb_buyer_orders": 1,
     "tb_carts": 5,
-    "tb_logs": 64654,
+    "tb_logs": 67664,
     "tb_payment_transactions": 2,
     "tb_payments": 3,
     "tb_people": 10005,
-    "tb_products": 6990,
+    "tb_product_categorias": 3000,
+    "tb_products": 7000,
     "tb_shipments": 1,
     "tb_user_addresses": 2,
     "tb_users": 10015,
@@ -3881,7 +3883,7 @@
     }
   ],
   "unsupportedStatements": [],
-  "statementCount": 1961,
+  "statementCount": 1977,
   "associationTables": [
     "tbd_carts_items",
     "tbd_products_users_providers",
@@ -3951,8 +3953,8 @@
   ],
   "analysis": {
     "status": "complete",
-    "parsedAt": "2026-11-12T03:07:13.383Z",
-    "bytes": 19635790,
+    "parsedAt": "2026-11-12T17:04:45.971Z",
+    "bytes": 20371601,
     "limitation": "Lectura estática del respaldo; no se ejecutó SQL."
   }
 }

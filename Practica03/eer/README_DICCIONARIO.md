@@ -10,7 +10,7 @@
 | Bases declaradas | db_test_8b |
 | Archivo fuente | respaldo_1410.sql |
 | Estado del análisis | complete |
-| Analizado en | 2026-11-12T03:07:13.383Z |
+| Analizado en | 2026-11-12T17:04:45.971Z |
 | Limitación | Lectura estática del respaldo; no se ejecutó SQL. |
 
 ## Estadísticas
@@ -26,9 +26,9 @@
 | Relaciones | 36 |
 | Vistas | 25 |
 | Triggers | 72 |
-| Procedimientos almacenados | 23 |
-| Filas indicadas por el esquema | 91801 |
-| Sentencias analizadas | 1961 |
+| Procedimientos almacenados | 24 |
+| Filas indicadas por el esquema | 97821 |
+| Sentencias analizadas | 1977 |
 
 > Los conteos de filas corresponden a los valores registrados en el esquema; consulta las advertencias para conocer su alcance.
 
@@ -99,7 +99,7 @@
 ### `tb_logs`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 64654
+- **Filas reportadas:** 67664
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -246,7 +246,7 @@ _Sin índices adicionales._
 ### `tb_product_categorias`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 3000
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -312,7 +312,7 @@ _Sin índices adicionales._
 ### `tb_products`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 6990
+- **Filas reportadas:** 7000
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -969,6 +969,7 @@ _Sin claves foráneas._
 - `sp_generate_nick`
 - `sp_generate_products`
 - `sp_generate_status`
+- `sp_insertar_1000_productos_categorias`
 - `sp_insert_generated_user`
 - `sp_insert_person`
 - `sp_insert_user`
