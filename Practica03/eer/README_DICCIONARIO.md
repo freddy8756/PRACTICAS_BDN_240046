@@ -10,7 +10,7 @@
 | Bases declaradas | db_test_8b |
 | Archivo fuente | respaldo_1410.sql |
 | Estado del análisis | complete |
-| Analizado en | 2026-11-04T21:18:07.452Z |
+| Analizado en | 2026-11-12T03:07:13.383Z |
 | Limitación | Lectura estática del respaldo; no se ejecutó SQL. |
 
 ## Estadísticas
@@ -26,9 +26,9 @@
 | Relaciones | 36 |
 | Vistas | 25 |
 | Triggers | 72 |
-| Procedimientos almacenados | 21 |
-| Filas indicadas por el esquema | 87713 |
-| Sentencias analizadas | 1922 |
+| Procedimientos almacenados | 23 |
+| Filas indicadas por el esquema | 91801 |
+| Sentencias analizadas | 1961 |
 
 > Los conteos de filas corresponden a los valores registrados en el esquema; consulta las advertencias para conocer su alcance.
 
@@ -37,7 +37,7 @@
 ### `tb_buyer_orders`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 1
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -73,7 +73,7 @@
 ### `tb_carts`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 5
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -99,7 +99,7 @@
 ### `tb_logs`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 62609
+- **Filas reportadas:** 64654
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -154,7 +154,7 @@ _Sin índices adicionales._
 ### `tb_payment_transactions`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 2
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -182,7 +182,7 @@ _Sin índices adicionales._
 ### `tb_payments`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 3
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -213,7 +213,7 @@ _Sin índices adicionales._
 ### `tb_people`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 10002
+- **Filas reportadas:** 10005
 - **Clave primaria:** `person_ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -312,7 +312,7 @@ _Sin índices adicionales._
 ### `tb_products`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 4990
+- **Filas reportadas:** 6990
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -371,7 +371,7 @@ _Sin claves foráneas._
 ### `tb_shipments`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 1
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -405,7 +405,7 @@ _Sin claves foráneas._
 ### `tb_user_addresses`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 2
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -418,7 +418,7 @@ _Sin claves foráneas._
 | 6 | `delivery_instructions` | `varchar(500)` | Sí | `NULL` | — |
 | 7 | `latitude` | `decimal(10,7)` | Sí | `NULL` | — |
 | 8 | `longitude` | `decimal(10,7)` | Sí | `NULL` | — |
-| 9 | `is_default` | `bit(1)` | No | `b'0'` | — |
+| 9 | `is_default` | `bit(1)` | No | `b'1'` | — |
 | 10 | `status` | `bit(1)` | No | `b'1'` | — |
 | 11 | `creation_date` | `datetime` | No | `CURRENT_TIMESTAMP` | — |
 | 12 | `last_update` | `datetime` | Sí | `NULL` | — |
@@ -446,7 +446,7 @@ _Sin claves foráneas._
 ### `tb_users`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 10012
+- **Filas reportadas:** 10015
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -503,7 +503,7 @@ _Sin claves foráneas._
 ### `tbc_payment_methods`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 2
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -528,7 +528,7 @@ _Sin claves foráneas._
 ### `tbc_payment_methods_types`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 2
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -612,7 +612,7 @@ _Sin claves foráneas._
 ### `tbd_carts_items`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 5
 - **Clave primaria:** `cart_ID`, `provider_ID`, `product_ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -688,7 +688,7 @@ _Sin claves foráneas._
 ### `tbd_products_users_providers`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 10
 - **Clave primaria:** `user_ID`, `product_ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -746,7 +746,7 @@ _Sin claves foráneas._
 ### `tbd_user_payment_methods`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 0
+- **Filas reportadas:** 4
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -959,6 +959,7 @@ _Sin claves foráneas._
 
 ## Procedimientos almacenados
 
+- `sp_generate_10_users`
 - `sp_generate_2000_multinational_users`
 - `sp_generate_5000_users_probability`
 - `sp_generate_500_users`
@@ -966,6 +967,7 @@ _Sin claves foráneas._
 - `sp_generate_country`
 - `sp_generate_email`
 - `sp_generate_nick`
+- `sp_generate_products`
 - `sp_generate_status`
 - `sp_insert_generated_user`
 - `sp_insert_person`

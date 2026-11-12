@@ -8,7 +8,10 @@ const outputPath = path.join(directory, 'README_DICCIONARIO.md');
 // GitHub Pages publishes from /docs at the repository root. This project lives
 // in Practica03/eer, so move two levels up before choosing the output folder.
 const htmlDirectory = path.resolve(directory, '..', '..', 'docs');
-const htmlPath = path.join(htmlDirectory, 'index.html');
+const localHtml = process.argv.includes('--local-html');
+const htmlOutputDirectory = localHtml ? directory : htmlDirectory;
+const htmlPath = path.join(htmlOutputDirectory, localHtml ? 'diccionario.html' : 'index.html');
+const markdownOnly = process.argv.includes('--markdown-only');
 
 const schema = JSON.parse(await readFile(schemaPath, 'utf8'));
 const tables = schema.tables ?? [];
@@ -210,6 +213,8 @@ const html = `<!doctype html>
 </body>
 </html>
 `;
-await mkdir(htmlDirectory, { recursive: true });
-await writeFile(htmlPath, html, 'utf8');
-console.log(`Diccionario generado: ${path.basename(outputPath)} y docs/index.html (${tables.length} tablas, ${columnCount} columnas).`);
+if (!markdownOnly) {
+  await mkdir(htmlOutputDirectory, { recursive: true });
+  await writeFile(htmlPath, html, 'utf8');
+}
+console.log(`Diccionario generado: ${path.basename(outputPath)}${markdownOnly ? '' : ` y ${localHtml ? 'diccionario.html' : 'docs/index.html'}`} (${tables.length} tablas, ${columnCount} columnas).`);
