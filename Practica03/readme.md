@@ -10,7 +10,7 @@ periodo:Septiembre -diciembre 2026.
 |2.|nuevos productos, inserccion de datos de 10000 usuarios, entre otros datos mas|5|🟢concluida|
 |3.|Creacion de mas vistas, trazabilidades y demas|5|🟢concluida|
 ### Modelo entidad-relacion y diccionario de datos
-- [Abrir modelo entidad-relacion (pagina web)](eer/index.html)
+- [Abrir modelo entidad-relacion](https://freddy8756.github.io/PRACTICAS_BDN_240046/modelo.html)
 - [Ver esquema JSON](eer/schema.json)
-- [Abrir diccionario de datos (pagina web)](eer/diccionario.html)
+- [Abrir diccionario de datos](https://freddy8756.github.io/PRACTICAS_BDN_240046/)
 - [Ver version Markdown](eer/README_DICCIONARIO.md)
