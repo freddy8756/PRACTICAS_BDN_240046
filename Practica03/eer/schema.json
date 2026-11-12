@@ -3953,7 +3953,7 @@
   ],
   "analysis": {
     "status": "complete",
-    "parsedAt": "2026-11-12T17:08:48.187Z",
+    "parsedAt": "2026-11-12T17:19:09.115Z",
     "bytes": 20371601,
     "limitation": "Lectura estática del respaldo; no se ejecutó SQL."
   }
