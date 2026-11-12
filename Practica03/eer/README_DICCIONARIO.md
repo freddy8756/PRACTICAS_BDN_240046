@@ -10,7 +10,7 @@
 | Bases declaradas | db_test_8b |
 | Archivo fuente | respaldo_1410.sql |
 | Estado del análisis | complete |
-| Analizado en | 2026-11-12T18:20:33.953Z |
+| Analizado en | 2026-11-12T18:46:16.769Z |
 | Limitación | Lectura estática del respaldo; no se ejecutó SQL. |
 
 ## Estadísticas
@@ -27,8 +27,8 @@
 | Vistas | 25 |
 | Triggers | 72 |
 | Procedimientos almacenados | 24 |
-| Filas indicadas por el esquema | 101871 |
-| Sentencias analizadas | 1977 |
+| Filas indicadas por el esquema | 105821 |
+| Sentencias analizadas | 1978 |
 
 > Los conteos de filas corresponden a los valores registrados en el esquema; consulta las advertencias para conocer su alcance.
 
@@ -99,7 +99,7 @@
 ### `tb_logs`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 69689
+- **Filas reportadas:** 71664
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
@@ -246,7 +246,7 @@ _Sin índices adicionales._
 ### `tb_product_categorias`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 5025
+- **Filas reportadas:** 7000
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
