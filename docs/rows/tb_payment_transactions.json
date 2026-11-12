@@ -1,0 +1,1 @@
+{"table":"tb_payment_transactions","columns":["ID","payment_ID","transaction_code","provider","transaction_status","response_message","creation_date"],"rows":[["2","2","TX000001","BBVA","Approved","pago autorizado correctamente","2026-11-11 19:50:51"],["3","2","TX000001","BBVA","Approved","pago autorizado correctamente","2026-11-11 20:25:04"]]}

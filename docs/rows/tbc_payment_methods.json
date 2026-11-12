@@ -1,0 +1,1 @@
+{"table":"tbc_payment_methods","columns":["ID","code","description","status","creation_date","last_update"],"rows":[["1","55","bienvenido","_binary '\u0001'","2026-11-09 23:46:13","2026-11-09 23:46:13"],["2","655","guao","_binary '\u0001'","2026-11-09 23:46:29","2026-11-09 23:46:29"]]}

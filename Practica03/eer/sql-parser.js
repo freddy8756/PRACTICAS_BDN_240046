@@ -118,3 +118,49 @@ export function analyzeDump(sql) {
   // Indexes outside table declarations (including ALTER ADD KEY) are reflected in column metadata above.
   return {database:{target:'db_test_8b',declared:[...new Set([...dbs,...uses])]},source:'respaldo_1410.sql',tables:[...tables.values()],relations,manyToMany,objects,inserts,dataMutations,unsupportedStatements:[...new Set(unsupported)],statementCount,associationTables:[...tables.values()].filter(association).map(t=>t.name),associationCandidates:[...tables.values()].filter(t=>t.foreignKeys.length>=2).map(t=>({table:t.name,confirmed:association(t)})),warnings:['Conteos de INSERT representan filas incluidas en el respaldo, no registros actuales ni estado final.','El respaldo contiene definiciones de rutinas almacenadas; no se ejecutaron.']};
 }
+
+function sqlStringValue(token) {
+  const raw=token.raw, quote=raw[0], body=raw.slice(1,-1);
+  const escapes={0:'\0',b:'\b',n:'\n',r:'\r',t:'\t',Z:'\x1a','\\':'\\',"'":"'",'"':'"','%':'%','_':'_'};
+  let value='';
+  for(let i=0;i<body.length;i++){
+    if(body[i]==='\\'&&i+1<body.length){const next=body[++i];value+=Object.hasOwn(escapes,next)?escapes[next]:next;}
+    else if(body[i]===quote&&body[i+1]===quote){value+=quote;i++;}
+    else value+=body[i];
+  }
+  return value;
+}
+
+function sqlValue(tokens) {
+  if(tokens.length===1){
+    const token=tokens[0];
+    if(token.type==='str')return sqlStringValue(token);
+    if(upper(token)==='NULL')return null;
+    return token.raw;
+  }
+  if(tokens.length===2&&['+','-'].includes(tokens[0].value)&&tokens[1].type==='num')return tokens.map(t=>t.raw).join('');
+  return tokens.map(t=>t.raw).join(' ');
+}
+
+export function extractDumpRows(sql, schema) {
+  sql=sql.replace(/\/\*!\d*\s*([\s\S]*?)\*\//g,'$1');
+  const tableColumns=new Map((schema?.tables??[]).map(table=>[table.name,table.columns.map(column=>column.name)]));
+  const collected=new Map();
+  for(const stmt of statements(sql)){
+    const tokens=lexSQL(stmt);if(!['INSERT','REPLACE'].includes(upper(tokens[0])))continue;
+    let i=1;if(upper(tokens[i])==='INTO')i++;
+    const table=unquote(val(tokens[i++]));if(tokens[i]?.value==='.')i++;
+    let columns=tableColumns.get(table)??null;
+    if(tokens[i]?.value==='('){const end=parenEnd(tokens,i);if(end>i&&upper(tokens[end+1])==='VALUES'){columns=splitTop(tokens.slice(i+1,end)).map(part=>unquote(val(part[0])));i=end+1;}}
+    if(!columns)continue;
+    const valuesIndex=tokens.findIndex((token,index)=>index>=i&&upper(token)==='VALUES');if(valuesIndex<0)continue;
+    let rows=collected.get(table);if(!rows){rows=[];collected.set(table,rows);}
+    let p=valuesIndex+1;
+    while(tokens[p]?.value==='('){
+      const end=parenEnd(tokens,p);if(end<0)break;
+      const values=splitTop(tokens.slice(p+1,end));const row=Object.fromEntries(columns.map((column,index)=>[column,values[index]?sqlValue(values[index]):null]));
+      rows.push(row);p=end+1;if(tokens[p]?.value===',')p++;else break;
+    }
+  }
+  return Object.fromEntries(collected);
+}

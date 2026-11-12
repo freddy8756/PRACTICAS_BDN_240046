@@ -1,0 +1,1 @@
+{"table":"tb_shipments","columns":["ID","buyer_order_ID","address_ID","tracking_number","carrier","shipment_status","shipped_date","delivered_date","status","creation_date","last_update"],"rows":[["2","1","9","GUIA000001","DHL","Shipped",null,null,"_binary '\u0001'","2026-11-11 20:01:11","2026-11-11 20:01:11"]]}

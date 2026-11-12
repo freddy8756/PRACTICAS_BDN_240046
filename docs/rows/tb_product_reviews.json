@@ -1,0 +1,1 @@
+{"table":"tb_product_reviews","columns":["ID","product_ID","user_ID","rating","review","status","creation_date","last_update"],"rows":[]}

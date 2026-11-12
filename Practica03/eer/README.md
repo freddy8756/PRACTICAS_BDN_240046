@@ -1,6 +1,6 @@
 # Modelo EER de `db_test_8b`
 
-Aplicación web estática, sin dependencias externas. Lee `../backups/respaldo_1410.sql` como texto y mantiene el esquema normalizado en `schema.json`. No ejecuta sentencias ni muestra valores de filas.
+Aplicación web estática, sin dependencias externas. Lee `../backups/respaldo_1410.sql` como texto y mantiene el esquema normalizado en `schema.json`. No ejecuta sentencias SQL. Al seleccionar una tabla muestra, con paginación, las filas incluidas en instrucciones `INSERT`; los campos de credenciales se ocultan. Los datos son los del respaldo y no necesariamente el estado final de MySQL.
 
 ## Iniciar
 
@@ -20,6 +20,12 @@ Si cambia el archivo de respaldo, ejecuta:
 node analyze.mjs
 ```
 
+Para regenerar la vista de datos por tabla y copiarla a `docs/` para GitHub Pages, ejecuta:
+
+```powershell
+npm run generate:rows
+```
+
 La aplicación también permite cargar otro `.sql` desde **Exportar → Analizar otro respaldo…**. Ese archivo se procesa en memoria del navegador; no se envía ni se ejecuta.
 
 ## Alcance del conteo
@@ -32,5 +38,6 @@ El respaldo contiene procedimientos almacenados y triggers. No se ejecutaron, po
 
 - `sql-parser.js`: lexer y analizador estático de instrucciones MySQL, comentarios ejecutables versionados, DDL, claves, índices, vistas, triggers, procedimientos e INSERTs.
 - `analyze.mjs`: genera `schema.json` desde el respaldo original sin alterarlo.
+- `generate-rows.mjs`: genera los registros de `INSERT` en archivos por tabla; oculta columnas de credenciales.
 - `app.js`, `index.html`, `styles.css`: lienzo, búsqueda, filtros, panel de detalle, conteos y exportaciones.
 - `server.mjs`: servidor estático local para permitir cargar el JSON en el navegador.
