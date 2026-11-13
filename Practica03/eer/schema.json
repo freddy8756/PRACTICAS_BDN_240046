@@ -290,8 +290,8 @@
       "indexes": [],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=179341 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 71664
+      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=179442 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 71765
     },
     {
       "name": "tb_order_cancellations",
@@ -3856,7 +3856,7 @@
   "inserts": {
     "tb_buyer_orders": 1,
     "tb_carts": 5,
-    "tb_logs": 71664,
+    "tb_logs": 71765,
     "tb_payment_transactions": 2,
     "tb_payments": 3,
     "tb_people": 10005,
@@ -3953,8 +3953,8 @@
   ],
   "analysis": {
     "status": "complete",
-    "parsedAt": "2026-11-12T18:46:16.769Z",
-    "bytes": 21339492,
+    "parsedAt": "2026-11-13T16:47:17.718Z",
+    "bytes": 21369745,
     "limitation": "Lectura estática del respaldo; no se ejecutó SQL."
   }
 }

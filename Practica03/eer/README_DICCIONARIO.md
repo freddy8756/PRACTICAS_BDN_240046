@@ -10,7 +10,7 @@
 | Bases declaradas | db_test_8b |
 | Archivo fuente | respaldo_1410.sql |
 | Estado del análisis | complete |
-| Analizado en | 2026-11-12T18:46:16.769Z |
+| Analizado en | 2026-11-13T16:47:17.718Z |
 | Limitación | Lectura estática del respaldo; no se ejecutó SQL. |
 
 ## Estadísticas
@@ -27,7 +27,7 @@
 | Vistas | 25 |
 | Triggers | 72 |
 | Procedimientos almacenados | 24 |
-| Filas indicadas por el esquema | 105821 |
+| Filas indicadas por el esquema | 105922 |
 | Sentencias analizadas | 1978 |
 
 > Los conteos de filas corresponden a los valores registrados en el esquema; consulta las advertencias para conocer su alcance.
@@ -99,7 +99,7 @@
 ### `tb_logs`
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 71664
+- **Filas reportadas:** 71765
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos |
