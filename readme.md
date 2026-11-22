@@ -3,7 +3,7 @@
 #### Alumno: Angel Eutiquio cruz huerta
 periodo:Septiembre -diciembre 2026. 
 ---
-### Tabla de practicas de la practica 03
+### Tabla de practicas de la practica 04
 |No.|Nombre| Descripcion|potenciador|estatus|
 |---|---|---|---|---|
 |1.|creacion de nuevas tablas|5|🟢concluida|

@@ -1,1 +1,1 @@
-{"table":"tbd_return_items","columns":["ID","return_ID","order_item_ID","quantity","observation","creation_date"],"rows":[]}
+{"table":"tbd_return_items","columns":["ID","return_ID","order_item_ID","quantity","observation","creation_date"],"rows":[["3","2","32","1","Pantalla rota","2026-11-19 11:53:03"]]}

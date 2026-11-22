@@ -1,1 +1,1 @@
-{"table":"tbd_cancellation_items","columns":["ID","cancellation_ID","order_item_ID","quantity","creation_date"],"rows":[]}
+{"table":"tbd_cancellation_items","columns":["ID","cancellation_ID","order_item_ID","quantity","creation_date"],"rows":[["3","3","31","5","2026-11-19 11:32:54"],["4","4","48","5","2026-11-19 17:59:42"]]}

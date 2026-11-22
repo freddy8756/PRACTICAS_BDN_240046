@@ -1,1 +1,1 @@
-{"table":"tb_order_cancellations","columns":["ID","buyer_order_ID","user_ID","cancellation_reason","approval_status","status","creation_date"],"rows":[]}
+{"table":"tb_order_cancellations","columns":["ID","buyer_order_ID","user_ID","cancellation_reason","approval_status","status","creation_date"],"rows":[["3","10","9528","Inventario insuficiente","Approved","_binary '\u0001'","2026-11-19 11:32:50"],["4","13","9526","Producto cancelado por el cliente","Approved","_binary '\u0001'","2026-11-19 17:59:38"]]}
