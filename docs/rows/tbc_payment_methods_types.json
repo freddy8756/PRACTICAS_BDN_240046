@@ -1,0 +1,1 @@
+{"table":"tbc_payment_methods_types","columns":["ID","name","description","status","creation_date","last_update"],"rows":[["1","angel","hola a todos","_binary '\u0001'","2026-11-09 23:44:03","2026-11-09 23:44:03"],["2","estado","bienvenido","_binary '\u0001'","2026-11-09 23:44:30","2026-11-09 23:44:30"]]}

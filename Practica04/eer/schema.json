@@ -125,7 +125,7 @@
         }
       ],
       "engine": "InnoDB",
-      "options": "NOT NULL DEFAULT '0.00',\r\n  `shipping_cost` decimal(12,2) NOT NULL DEFAULT '0.00',\r\n  `fulfillment_status` enum('Pending','Accepted','Preparing','Sent','Delivered','Canceled','Returned') NOT NULL DEFAULT 'Pending',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `seller_ID` (`seller_ID`),\r\n  CONSTRAINT `tb_buyer_orders_ibfk_1` FOREIGN KEY (`seller_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `tb_buyer_orders_chk_1` CHECK ((`subtotal` >= 0)),\r\n  CONSTRAINT `tb_buyer_orders_chk_2` CHECK ((`shipping_cost` >= 0))\r\n) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "options": "NOT NULL DEFAULT '0.00',\r\n  `shipping_cost` decimal(12,2) NOT NULL DEFAULT '0.00',\r\n  `fulfillment_status` enum('Pending','Accepted','Preparing','Sent','Delivered','Canceled','Returned') NOT NULL DEFAULT 'Pending',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `seller_ID` (`seller_ID`),\r\n  CONSTRAINT `tb_buyer_orders_ibfk_1` FOREIGN KEY (`seller_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `tb_buyer_orders_chk_1` CHECK ((`subtotal` >= 0)),\r\n  CONSTRAINT `tb_buyer_orders_chk_2` CHECK ((`shipping_cost` >= 0))\r\n) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
       "rowCount": 6
     },
     {
@@ -214,8 +214,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `uk_cart_user` (`user_ID`),\r\n  CONSTRAINT `tb_carts_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 15
+      "options": "DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `uk_cart_user` (`user_ID`),\r\n  CONSTRAINT `tb_carts_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 11
     },
     {
       "name": "tb_logs",
@@ -290,8 +290,8 @@
       "indexes": [],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=179568 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 71883
+      "options": "NOT NULL,\r\n  `table_operation` enum('Create','Read','Update','Delete') DEFAULT NULL,\r\n  `db_user` varchar(80) NOT NULL,\r\n  `table_description` text NOT NULL,\r\n  `operation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `operation_status` bit(1) DEFAULT b'1',\r\n  `product_id` int DEFAULT NULL,\r\n  PRIMARY KEY (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=179603 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 71871
     },
     {
       "name": "tb_order_cancellations",
@@ -422,7 +422,7 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `approval_status` enum('Pending','Approved','Rejected') NOT NULL DEFAULT 'Pending',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_cancellation_order` (`buyer_order_ID`),\r\n  KEY `fk_cancellation_user` (`user_ID`),\r\n  CONSTRAINT `fk_cancellation_order` FOREIGN KEY (`buyer_order_ID`) REFERENCES `tb_buyer_orders` (`ID`),\r\n  CONSTRAINT `fk_cancellation_user` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "options": "NOT NULL,\r\n  `approval_status` enum('Pending','Approved','Rejected') NOT NULL DEFAULT 'Pending',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_cancellation_order` (`buyer_order_ID`),\r\n  KEY `fk_cancellation_user` (`user_ID`),\r\n  CONSTRAINT `fk_cancellation_order` FOREIGN KEY (`buyer_order_ID`) REFERENCES `tb_buyer_orders` (`ID`),\r\n  CONSTRAINT `fk_cancellation_user` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
       "rowCount": 2
     },
     {
@@ -522,7 +522,7 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `provider` varchar(60) NOT NULL,\r\n  `transaction_status` enum('Pending','Approved','Rejected','Canceled') NOT NULL,\r\n  `response_message` varchar(500) DEFAULT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_transaction_payment` (`payment_ID`),\r\n  CONSTRAINT `fk_transaction_payment` FOREIGN KEY (`payment_ID`) REFERENCES `tb_payments` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "options": "NOT NULL,\r\n  `provider` varchar(60) NOT NULL,\r\n  `transaction_status` enum('Pending','Approved','Rejected','Canceled') NOT NULL,\r\n  `response_message` varchar(500) DEFAULT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_transaction_payment` (`payment_ID`),\r\n  CONSTRAINT `fk_transaction_payment` FOREIGN KEY (`payment_ID`) REFERENCES `tb_payments` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
       "rowCount": 13
     },
     {
@@ -663,8 +663,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `payment_status` enum('Pending','Approved','Rejected','Refunded') NOT NULL DEFAULT 'Pending',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_payment_order` (`buyer_order_ID`),\r\n  KEY `fk_payment_user_method` (`payment_method_ID`),\r\n  CONSTRAINT `fk_payment_order` FOREIGN KEY (`buyer_order_ID`) REFERENCES `tb_buyer_orders` (`ID`),\r\n  CONSTRAINT `fk_payment_user_method` FOREIGN KEY (`payment_method_ID`) REFERENCES `tbd_user_payment_methods` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 12
+      "options": "NOT NULL,\r\n  `payment_status` enum('Pending','Approved','Rejected','Refunded') NOT NULL DEFAULT 'Pending',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_payment_order` (`buyer_order_ID`),\r\n  KEY `fk_payment_user_method` (`payment_method_ID`),\r\n  CONSTRAINT `fk_payment_order` FOREIGN KEY (`buyer_order_ID`) REFERENCES `tb_buyer_orders` (`ID`),\r\n  CONSTRAINT `fk_payment_user_method` FOREIGN KEY (`payment_method_ID`) REFERENCES `tbd_user_payment_methods` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 13
     },
     {
       "name": "tb_people",
@@ -808,8 +808,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "DEFAULT NULL,\r\n  `given_names` varchar(150) NOT NULL,\r\n  `family_names` varchar(150) DEFAULT NULL,\r\n  `birth_date` date DEFAULT NULL,\r\n  `gender` enum('Hombre','Mujer','Prefiero no decirlo') NOT NULL DEFAULT 'Prefiero no decirlo',\r\n  `country_code` char(2) DEFAULT NULL,\r\n  `phone` varchar(25) DEFAULT NULL,\r\n  `status` bit(1) DEFAULT b'1',\r\n  `creation_date` datetime DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`person_ID`),\r\n  UNIQUE KEY `user_ID` (`user_ID`),\r\n  CONSTRAINT `fk_people_users` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=19021 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 10005
+      "options": "DEFAULT NULL,\r\n  `given_names` varchar(150) NOT NULL,\r\n  `family_names` varchar(150) DEFAULT NULL,\r\n  `birth_date` date DEFAULT NULL,\r\n  `gender` enum('Hombre','Mujer','Prefiero no decirlo') NOT NULL DEFAULT 'Prefiero no decirlo',\r\n  `country_code` char(2) DEFAULT NULL,\r\n  `phone` varchar(25) DEFAULT NULL,\r\n  `status` bit(1) DEFAULT b'1',\r\n  `creation_date` datetime DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`person_ID`),\r\n  UNIQUE KEY `user_ID` (`user_ID`),\r\n  CONSTRAINT `fk_people_users` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=19022 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 10006
     },
     {
       "name": "tb_product_categorias",
@@ -1316,7 +1316,7 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `return_status` enum('Requested','Approved','Rejected','Completed') NOT NULL DEFAULT 'Requested',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_return_order` (`buyer_order_ID`),\r\n  KEY `fk_return_user` (`user_ID`),\r\n  CONSTRAINT `fk_return_order` FOREIGN KEY (`buyer_order_ID`) REFERENCES `tb_buyer_orders` (`ID`),\r\n  CONSTRAINT `fk_return_user` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "options": "NOT NULL,\r\n  `return_status` enum('Requested','Approved','Rejected','Completed') NOT NULL DEFAULT 'Requested',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_return_order` (`buyer_order_ID`),\r\n  KEY `fk_return_user` (`user_ID`),\r\n  CONSTRAINT `fk_return_order` FOREIGN KEY (`buyer_order_ID`) REFERENCES `tb_buyer_orders` (`ID`),\r\n  CONSTRAINT `fk_return_user` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
       "rowCount": 1
     },
     {
@@ -1482,7 +1482,7 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "DEFAULT NULL,\r\n  `carrier` varchar(100) DEFAULT NULL,\r\n  `shipment_status` enum('Pending','Preparing','Shipped','Delivered','Lost','Returned') NOT NULL DEFAULT 'Pending',\r\n  `shipped_date` datetime DEFAULT NULL,\r\n  `delivered_date` datetime DEFAULT NULL,\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_shipment_order` (`buyer_order_ID`),\r\n  KEY `fk_shipment_address` (`address_ID`),\r\n  CONSTRAINT `fk_shipment_address` FOREIGN KEY (`address_ID`) REFERENCES `tb_user_addresses` (`ID`),\r\n  CONSTRAINT `fk_shipment_order` FOREIGN KEY (`buyer_order_ID`) REFERENCES `tb_buyer_orders` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "options": "DEFAULT NULL,\r\n  `carrier` varchar(100) DEFAULT NULL,\r\n  `shipment_status` enum('Pending','Preparing','Shipped','Delivered','Lost','Returned') NOT NULL DEFAULT 'Pending',\r\n  `shipped_date` datetime DEFAULT NULL,\r\n  `delivered_date` datetime DEFAULT NULL,\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_shipment_order` (`buyer_order_ID`),\r\n  KEY `fk_shipment_address` (`address_ID`),\r\n  CONSTRAINT `fk_shipment_address` FOREIGN KEY (`address_ID`) REFERENCES `tb_user_addresses` (`ID`),\r\n  CONSTRAINT `fk_shipment_order` FOREIGN KEY (`buyer_order_ID`) REFERENCES `tb_buyer_orders` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
       "rowCount": 6
     },
     {
@@ -1638,7 +1638,7 @@
         }
       ],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `recipient_name` varchar(150) DEFAULT NULL,\r\n  `recipient_phone` varchar(25) DEFAULT NULL,\r\n  `delivery_instructions` varchar(500) DEFAULT NULL,\r\n  `latitude` decimal(10,7) DEFAULT NULL,\r\n  `longitude` decimal(10,7) DEFAULT NULL,\r\n  `is_default` bit(1) NOT NULL DEFAULT b'1',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `idx_user_addresses` (`user_ID`),\r\n  CONSTRAINT `fk_addresses_users` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `chk_coordinates` CHECK ((((`latitude` is null) and (`longitude` is null)) or ((`latitude` is not null) and (`longitude` is not null)))),\r\n  CONSTRAINT `chk_latitude` CHECK (((`latitude` is null) or (`latitude` between -(90) and 90))),\r\n  CONSTRAINT `chk_longitude` CHECK (((`longitude` is null) or (`longitude` between -(180) and 180)))\r\n) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "options": "NOT NULL,\r\n  `recipient_name` varchar(150) DEFAULT NULL,\r\n  `recipient_phone` varchar(25) DEFAULT NULL,\r\n  `delivery_instructions` varchar(500) DEFAULT NULL,\r\n  `latitude` decimal(10,7) DEFAULT NULL,\r\n  `longitude` decimal(10,7) DEFAULT NULL,\r\n  `is_default` bit(1) NOT NULL DEFAULT b'1',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `idx_user_addresses` (`user_ID`),\r\n  CONSTRAINT `fk_addresses_users` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `chk_coordinates` CHECK ((((`latitude` is null) and (`longitude` is null)) or ((`latitude` is not null) and (`longitude` is not null)))),\r\n  CONSTRAINT `chk_latitude` CHECK (((`latitude` is null) or (`latitude` between -(90) and 90))),\r\n  CONSTRAINT `chk_longitude` CHECK (((`longitude` is null) or (`longitude` between -(180) and 180)))\r\n) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
       "rowCount": 8
     },
     {
@@ -1737,8 +1737,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `nick` varchar(50) NOT NULL,\r\n  `password` varchar(100) NOT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL,\r\n  `last_login` datetime DEFAULT NULL,\r\n  `status` tinyint(1) NOT NULL DEFAULT '1',\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `email` (`email`),\r\n  UNIQUE KEY `nick` (`nick`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=19528 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 10015
+      "options": "NOT NULL,\r\n  `nick` varchar(50) NOT NULL,\r\n  `password` varchar(100) NOT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL,\r\n  `last_login` datetime DEFAULT NULL,\r\n  `status` tinyint(1) NOT NULL DEFAULT '1',\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `email` (`email`),\r\n  UNIQUE KEY `nick` (`nick`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=19529 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 10016
     },
     {
       "name": "tbc_categorias",
@@ -2272,7 +2272,7 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": ",\r\n  KEY `fk_cancel_item_cancel` (`cancellation_ID`),\r\n  KEY `fk_cancel_item_order` (`order_item_ID`),\r\n  CONSTRAINT `fk_cancel_item_cancel` FOREIGN KEY (`cancellation_ID`) REFERENCES `tb_order_cancellations` (`ID`),\r\n  CONSTRAINT `fk_cancel_item_order` FOREIGN KEY (`order_item_ID`) REFERENCES `tbd_order_items` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "options": ",\r\n  KEY `fk_cancel_item_cancel` (`cancellation_ID`),\r\n  KEY `fk_cancel_item_order` (`order_item_ID`),\r\n  CONSTRAINT `fk_cancel_item_cancel` FOREIGN KEY (`cancellation_ID`) REFERENCES `tb_order_cancellations` (`ID`),\r\n  CONSTRAINT `fk_cancel_item_order` FOREIGN KEY (`order_item_ID`) REFERENCES `tbd_order_items` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
       "rowCount": 2
     },
     {
@@ -2419,7 +2419,7 @@
       ],
       "engine": "InnoDB",
       "options": ",\r\n  KEY `provider_ID` (`provider_ID`),\r\n  KEY `product_ID` (`product_ID`),\r\n  CONSTRAINT `tbd_carts_items_ibfk_1` FOREIGN KEY (`cart_ID`) REFERENCES `tb_carts` (`ID`),\r\n  CONSTRAINT `tbd_carts_items_ibfk_2` FOREIGN KEY (`provider_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `tbd_carts_items_ibfk_3` FOREIGN KEY (`product_ID`) REFERENCES `tb_products` (`ID`),\r\n  CONSTRAINT `chk_cart_quantity` CHECK ((`quantity` > 0))\r\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 27
+      "rowCount": 30
     },
     {
       "name": "tbd_order_items",
@@ -2603,8 +2603,8 @@
         }
       ],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `quantity` int unsigned NOT NULL,\r\n  `unit_price` decimal(12,2) NOT NULL,\r\n  `subtotal` decimal(12,2) GENERATED ALWAYS AS ((`quantity` * `unit_price`)) STORED,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `seller_order_ID` (`seller_order_ID`),\r\n  KEY `product_ID` (`product_ID`),\r\n  KEY `provider_ID` (`provider_ID`),\r\n  CONSTRAINT `tbd_order_items_ibfk_1` FOREIGN KEY (`seller_order_ID`) REFERENCES `tb_buyer_orders` (`ID`),\r\n  CONSTRAINT `tbd_order_items_ibfk_2` FOREIGN KEY (`product_ID`) REFERENCES `tb_products` (`ID`),\r\n  CONSTRAINT `tbd_order_items_ibfk_3` FOREIGN KEY (`provider_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `tbd_order_items_chk_1` CHECK ((`quantity` > 0)),\r\n  CONSTRAINT `tbd_order_items_chk_2` CHECK ((`unit_price` >= 0))\r\n) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 12
+      "options": "NOT NULL,\r\n  `quantity` int unsigned NOT NULL,\r\n  `unit_price` decimal(12,2) NOT NULL,\r\n  `subtotal` decimal(12,2) GENERATED ALWAYS AS ((`quantity` * `unit_price`)) STORED,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `seller_order_ID` (`seller_order_ID`),\r\n  KEY `product_ID` (`product_ID`),\r\n  KEY `provider_ID` (`provider_ID`),\r\n  CONSTRAINT `tbd_order_items_ibfk_1` FOREIGN KEY (`seller_order_ID`) REFERENCES `tb_buyer_orders` (`ID`),\r\n  CONSTRAINT `tbd_order_items_ibfk_2` FOREIGN KEY (`product_ID`) REFERENCES `tb_products` (`ID`),\r\n  CONSTRAINT `tbd_order_items_ibfk_3` FOREIGN KEY (`provider_ID`) REFERENCES `tb_users` (`ID`),\r\n  CONSTRAINT `tbd_order_items_chk_1` CHECK ((`quantity` > 0)),\r\n  CONSTRAINT `tbd_order_items_chk_2` CHECK ((`unit_price` >= 0))\r\n) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 25
     },
     {
       "name": "tbd_products_users_providers",
@@ -2852,8 +2852,8 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "DEFAULT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_return_item_return` (`return_ID`),\r\n  KEY `fk_return_item_order` (`order_item_ID`),\r\n  CONSTRAINT `fk_return_item_order` FOREIGN KEY (`order_item_ID`) REFERENCES `tbd_order_items` (`ID`),\r\n  CONSTRAINT `fk_return_item_return` FOREIGN KEY (`return_ID`) REFERENCES `tb_returns` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
-      "rowCount": 2
+      "options": "DEFAULT NULL,\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  KEY `fk_return_item_return` (`return_ID`),\r\n  KEY `fk_return_item_order` (`order_item_ID`),\r\n  CONSTRAINT `fk_return_item_order` FOREIGN KEY (`order_item_ID`) REFERENCES `tbd_order_items` (`ID`),\r\n  CONSTRAINT `fk_return_item_return` FOREIGN KEY (`return_ID`) REFERENCES `tb_returns` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "rowCount": 1
     },
     {
       "name": "tbd_user_payment_methods",
@@ -3032,7 +3032,7 @@
       ],
       "checks": [],
       "engine": "InnoDB",
-      "options": "NOT NULL,\r\n  `provider_method_ref` varchar(255) NOT NULL,\r\n  `label` varchar(100) DEFAULT NULL,\r\n  `last_four` char(4) DEFAULT NULL,\r\n  `is_default` tinyint(1) NOT NULL DEFAULT '0',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `uk_provider_method` (`provider`,`provider_method_ref`),\r\n  KEY `fk_payment_user` (`user_ID`),\r\n  KEY `fk_payment_method_type` (`payment_method_type_ID`),\r\n  CONSTRAINT `fk_payment_method_type` FOREIGN KEY (`payment_method_type_ID`) REFERENCES `tbc_payment_methods` (`ID`),\r\n  CONSTRAINT `fk_payment_user` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
+      "options": "NOT NULL,\r\n  `provider_method_ref` varchar(255) NOT NULL,\r\n  `label` varchar(100) DEFAULT NULL,\r\n  `last_four` char(4) DEFAULT NULL,\r\n  `is_default` tinyint(1) NOT NULL DEFAULT '0',\r\n  `status` bit(1) NOT NULL DEFAULT b'1',\r\n  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\r\n  `last_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,\r\n  PRIMARY KEY (`ID`),\r\n  UNIQUE KEY `uk_provider_method` (`provider`,`provider_method_ref`),\r\n  KEY `fk_payment_user` (`user_ID`),\r\n  KEY `fk_payment_method_type` (`payment_method_type_ID`),\r\n  CONSTRAINT `fk_payment_method_type` FOREIGN KEY (`payment_method_type_ID`) REFERENCES `tbc_payment_methods` (`ID`),\r\n  CONSTRAINT `fk_payment_user` FOREIGN KEY (`user_ID`) REFERENCES `tb_users` (`ID`)\r\n) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci",
       "rowCount": 9
     },
     {
@@ -3725,9 +3725,7 @@
   ],
   "objects": {
     "views": [
-      "vw_total_products_by_category",
-      "vw_trazabilidad_address_components",
-      "vw_trazabilidad_buyer_orders",
+      "vw_auditoria_casos_prueba",
       "vw_trazabilidad_cancellation_items",
       "vw_trazabilidad_carts",
       "vw_trazabilidad_carts_items",
@@ -3855,26 +3853,26 @@
   },
   "inserts": {
     "tb_buyer_orders": 6,
-    "tb_carts": 15,
-    "tb_logs": 71883,
+    "tb_carts": 11,
+    "tb_logs": 71871,
     "tb_order_cancellations": 2,
     "tb_payment_transactions": 13,
-    "tb_payments": 12,
-    "tb_people": 10005,
+    "tb_payments": 13,
+    "tb_people": 10006,
     "tb_product_categorias": 7000,
     "tb_products": 7000,
     "tb_returns": 1,
     "tb_shipments": 6,
     "tb_user_addresses": 8,
-    "tb_users": 10015,
+    "tb_users": 10016,
     "tbc_categorias": 100,
     "tbc_payment_methods": 2,
     "tbc_payment_methods_types": 2,
     "tbd_cancellation_items": 2,
-    "tbd_carts_items": 27,
-    "tbd_order_items": 12,
+    "tbd_carts_items": 30,
+    "tbd_order_items": 25,
     "tbd_products_users_providers": 10,
-    "tbd_return_items": 2,
+    "tbd_return_items": 1,
     "tbd_user_payment_methods": 9
   },
   "dataMutations": [
@@ -3888,7 +3886,7 @@
     }
   ],
   "unsupportedStatements": [],
-  "statementCount": 1983,
+  "statementCount": 1949,
   "associationTables": [
     "tbd_carts_items",
     "tbd_products_users_providers",
@@ -3958,8 +3956,8 @@
   ],
   "analysis": {
     "status": "complete",
-    "parsedAt": "2026-11-19T02:41:27.427Z",
-    "bytes": 21399565,
+    "parsedAt": "2026-11-22T01:58:11.449Z",
+    "bytes": 21399480,
     "limitation": "Lectura estática del respaldo; no se ejecutó SQL."
   }
 }

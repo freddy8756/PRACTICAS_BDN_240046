@@ -1,6 +1,10 @@
 # Modelo EER de `db_test_8b`
 
-Aplicación web estática, sin dependencias externas. Lee `../backups/respaldo_1410.sql` como texto y mantiene el esquema normalizado en `schema.json`. No ejecuta sentencias SQL. Al seleccionar una tabla muestra, con paginación, las filas incluidas en instrucciones `INSERT`; los campos de credenciales se ocultan. Los datos son los del respaldo y no necesariamente el estado final de MySQL.
+Modelo entidad-relación y diccionario de datos actualizados con `../backups/respaldo_1410.sql`. El análisis estático reconoce 25 tablas, 36 relaciones y los objetos programables declarados en el respaldo. El modelo se visualiza en `index.html`; el diccionario está disponible en `README_DICCIONARIO.md` y `diccionario.html`.
+
+## Paso añadido al flujo
+
+Se añadió la **reclamación/devolución de una orden, con seguimiento de sus artículos y posible reenvío**. El respaldo refleja esta etapa en `tb_returns` y `tbd_return_items`, relacionadas con la orden y el usuario. La vista `vw_auditoria_casos_prueba` la clasifica como **“Reclamación / Devolución”** y contempla el caso de compra con fallo en el último pago, reclamación y reenvío. También se documentan las tablas de cancelación (`tb_order_cancellations` y `tbd_cancellation_items`) que aparecen en el flujo de auditoría.
 
 ## Iniciar
 
@@ -14,30 +18,31 @@ Abre `http://127.0.0.1:4173`. El servidor solo escucha en la interfaz local.
 
 ## Actualizar el análisis
 
-Si cambia el archivo de respaldo, ejecuta:
+Si cambia el respaldo, ejecuta:
 
 ```powershell
 node analyze.mjs
+node generate-dictionary.mjs --local-html
 ```
 
-Para regenerar la vista de datos por tabla y copiarla a `docs/` para GitHub Pages, ejecuta:
+El primer comando actualiza `schema.json` (tablas, columnas, claves, relaciones y objetos detectados). El segundo regenera el diccionario Markdown y `diccionario.html` desde ese esquema.
+
+Para regenerar los registros de `INSERT` por tabla:
 
 ```powershell
 npm run generate:rows
 ```
 
-La aplicación también permite cargar otro `.sql` desde **Exportar → Analizar otro respaldo…**. Ese archivo se procesa en memoria del navegador; no se envía ni se ejecuta.
+La aplicación también permite cargar otro `.sql` desde **Exportar → Analizar otro respaldo…**. Se procesa en memoria del navegador; no se envía ni ejecuta.
 
-## Alcance del conteo
+## Alcance
 
-Los números se etiquetan como **Filas incluidas en el respaldo** y cuentan tuplas de instrucciones `INSERT ... VALUES`. Un cero indica que el respaldo no contiene filas INSERT para esa tabla; no describe la cantidad actual de MySQL. Los conteos actuales requieren un backend protegido y una conexión autorizada de solo lectura, que este proyecto no configura.
+Los conteos de filas corresponden a tuplas incluidas en instrucciones `INSERT` del respaldo; no representan necesariamente el estado actual de MySQL. El respaldo contiene procedimientos, triggers y vistas, pero el análisis es estático: no ejecuta SQL. Las tablas asociativas se identifican por sus claves y relaciones declaradas.
 
-El respaldo contiene procedimientos almacenados y triggers. No se ejecutaron, por lo que las cifras no se presentan como reconstrucción del estado final. Las tablas asociativas se confirman por PK compuesta con FK; otras tablas con varias FK se muestran como candidatas cuando no existe unicidad conjunta declarada.
+## Archivos principales
 
-## Archivos
-
-- `sql-parser.js`: lexer y analizador estático de instrucciones MySQL, comentarios ejecutables versionados, DDL, claves, índices, vistas, triggers, procedimientos e INSERTs.
-- `analyze.mjs`: genera `schema.json` desde el respaldo original sin alterarlo.
-- `generate-rows.mjs`: genera los registros de `INSERT` en archivos por tabla; oculta columnas de credenciales.
-- `app.js`, `index.html`, `styles.css`: lienzo, búsqueda, filtros, panel de detalle, conteos y exportaciones.
-- `server.mjs`: servidor estático local para permitir cargar el JSON en el navegador.
+- `schema.json`: esquema normalizado que usa la visualización.
+- `README_DICCIONARIO.md`, `diccionario.html`: diccionario de datos generado.
+- `analyze.mjs`, `sql-parser.js`: análisis estático del respaldo.
+- `app.js`, `index.html`, `styles.css`: lienzo del modelo entidad-relación y controles.
+- `server.mjs`: servidor local para abrir la aplicación.

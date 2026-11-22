@@ -10,7 +10,7 @@
 | Bases declaradas | db_test_8b |
 | Archivo fuente | respaldo_1410.sql |
 | Estado del análisis | complete |
-| Analizado en | 2026-11-19T02:41:27.427Z |
+| Analizado en | 2026-11-22T01:58:11.449Z |
 | Limitación | Lectura estática del respaldo; no se ejecutó SQL. |
 
 ## Estadísticas
@@ -24,11 +24,11 @@
 | Índices | 41 |
 | Restricciones CHECK | 9 |
 | Relaciones | 36 |
-| Vistas | 25 |
+| Vistas | 23 |
 | Triggers | 72 |
 | Procedimientos almacenados | 24 |
-| Filas indicadas por el esquema | 106132 |
-| Sentencias analizadas | 1983 |
+| Filas indicadas por el esquema | 106134 |
+| Sentencias analizadas | 1949 |
 
 > Los conteos de filas corresponden a los valores registrados en el esquema; consulta las advertencias para conocer su alcance.
 
@@ -77,7 +77,7 @@ Registra las órdenes de compra realizadas por los compradores, con sus importes
 Representa el carrito de compra asociado a un usuario.
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 15
+- **Filas reportadas:** 11
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos | Descripción |
@@ -105,7 +105,7 @@ Representa el carrito de compra asociado a un usuario.
 Almacena el historial de operaciones registradas sobre las tablas de la base de datos.
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 71883
+- **Filas reportadas:** 71871
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos | Descripción |
@@ -194,7 +194,7 @@ Guarda las transacciones y respuestas del proveedor de pago para cada pago.
 Registra los pagos de órdenes, el método usado, el importe y su estado.
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 12
+- **Filas reportadas:** 13
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos | Descripción |
@@ -227,7 +227,7 @@ Registra los pagos de órdenes, el método usado, el importe y su estado.
 Almacena datos personales y de contacto complementarios al perfil de usuario.
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 10005
+- **Filas reportadas:** 10006
 - **Clave primaria:** `person_ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos | Descripción |
@@ -474,7 +474,7 @@ Almacena las direcciones de entrega de cada usuario.
 Contiene las cuentas de acceso de los usuarios.
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 10015
+- **Filas reportadas:** 10016
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos | Descripción |
@@ -652,7 +652,7 @@ Detalla los artículos y cantidades incluidos en una cancelación.
 Detalla los productos y proveedores incluidos en cada carrito.
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 27
+- **Filas reportadas:** 30
 - **Clave primaria:** `cart_ID`, `provider_ID`, `product_ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos | Descripción |
@@ -689,7 +689,7 @@ Detalla los productos y proveedores incluidos en cada carrito.
 Detalla los productos, cantidades y precios que componen una orden.
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 12
+- **Filas reportadas:** 25
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos | Descripción |
@@ -763,7 +763,7 @@ Relaciona productos con usuarios proveedores y registra el tipo de propiedad y d
 Detalla los artículos y cantidades incluidos en una devolución.
 
 - **Motor:** InnoDB
-- **Filas reportadas:** 2
+- **Filas reportadas:** 1
 - **Clave primaria:** `ID`
 
 | # | Columna | Tipo | Nula | Predeterminado | Atributos | Descripción |
@@ -906,9 +906,7 @@ Relaciona usuarios con productos guardados en su lista de deseos.
 
 ## Vistas
 
-- `vw_total_products_by_category`
-- `vw_trazabilidad_address_components`
-- `vw_trazabilidad_buyer_orders`
+- `vw_auditoria_casos_prueba`
 - `vw_trazabilidad_cancellation_items`
 - `vw_trazabilidad_carts`
 - `vw_trazabilidad_carts_items`

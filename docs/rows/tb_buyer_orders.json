@@ -1,0 +1,1 @@
+{"table":"tb_buyer_orders","columns":["ID","seller_ID","subtotal","shipping_cost","fulfillment_status","status","creation_date","last_update"],"rows":[["1","16343","6.50","65.50","Delivered","_binary '\u0001'","2026-11-09 22:45:12","2026-11-11 20:02:27"]]}

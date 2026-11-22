@@ -1,0 +1,1 @@
+{"table":"tb_carts","columns":["ID","user_ID","status","creation_date","last_update"],"rows":[["1","1","_binary '\u0001'","2026-11-09 22:07:57",null],["3","3","_binary '\u0001'","2026-11-09 22:28:52",null],["4","4","_binary '\u0001'","2026-11-09 22:28:58",null],["5","5","_binary '\u0001'","2026-11-09 22:29:06",null],["6","6","_binary '\u0001'","2026-11-09 22:29:13",null]]}
