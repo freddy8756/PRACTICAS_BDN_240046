@@ -1,15 +1,16 @@
-# Practica de lla asignatura de base de datos en la nube 
+# Practica 03
 ## Ingenieria en tecnologias de la informacion e inovacion digital
 #### Alumno: Angel Eutiquio cruz huerta
 periodo:Septiembre -diciembre 2026. 
 ---
-### Tabla de practicas de la materia
+### Tabla de practicas de la practica 03
 |No.|Nombre| Descripcion|potenciador|estatus|
 |---|---|---|---|---|
-|1.|Medotologia de evaluacion de la materia|Trancribir en libreta y comprender la metodologia y fechas de avluacion de la asignatura|5|🟢concluida|
-|2.|conexiones remotas para bases de datos sql|crear y administrar usuarios y privilegio|60|🟢concluida|
-|3.|manipulacion de datos en conexiones remotas a bases de datos relacionales|crear procedimientos almacenados, funciones, tablas derivado, importacion de datos|??|🟡En proceso|
-|4.|Examen practico instalacion de postgre y MySQL en un VPS| Instalar, configurar, desplegar y simular datos en los servicios de bases de datos relacionales remotas junto a un manual de instalacion|100|🟡en proceso|
-|5.|Agregacion de codex y la carpeta eer para visualizar las tablas|descargar y usar|100|🟢concluida|
-|6.|Agregacion tablas restantes a bases de datos mysql, actualizacion de diccionario de datos y diagrama entidad relacion y fucion de la practica 03 con la rama master|100|🟢concluida|
-|7.|Creacion de la rama practica 05 para la gestion de privilegios, roles y usuarios de mongodb|??|🟡en proceso|
+|1.|creacion de nuevas tablas|5|🟢concluida|
+|2.|nuevos productos, inserccion de datos de 10000 usuarios, entre otros datos mas|5|🟢concluida|
+|3.|Creacion de mas vistas, trazabilidades y demas|5|🟢concluida|
+### Modelo entidad-relacion y diccionario de datos
+- [Abrir modelo entidad-relacion](https://freddy8756.github.io/PRACTICAS_BDN_240046/modelo.html)
+- [Ver esquema JSON](eer/schema.json)
+- [Abrir diccionario de datos](https://freddy8756.github.io/PRACTICAS_BDN_240046/)
+- [Ver version Markdown](eer/README_DICCIONARIO.md)
